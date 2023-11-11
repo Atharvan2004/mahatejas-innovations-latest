@@ -27,27 +27,6 @@ export default function LandingBanner() {
           "md:absolute md:right-5 md:top-0 md:-z-10 md:h-[85vh] md:w-4/5",
         )}
       />
-
-      {/* go down button */}
-      <a
-        href="#product-grid"
-        className="absolute -bottom-3 right-3 bg-[rgba(0,0,0,0.2)] px-9 py-10 backdrop-blur-md lg:-bottom-4 lg:-right-3"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={6.5}
-          stroke="currentColor"
-          className="fixed left-7 top-8 h-6 w-6 animate-bounce text-xl text-white"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-          />
-        </svg>
-      </a>
     </div>
   );
 }
