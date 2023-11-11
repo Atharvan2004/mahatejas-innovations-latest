@@ -33,9 +33,13 @@ app.use("/user", Urouter);
 app.use("/order", Orouter);
 app.use("/admin", Arouter);
 
-// serve frontend
-app.use(express.static(path.join(__dirname, "./client/dist/")));
-
-app.get("*", (req,res) => {
-  res.sendFile(path.join(__dirname, "./client/dist/index.html"));
-});
+app.use(express.static('public'))
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+})
+// // serve frontend
+// app.use(express.static(path.join(__dirname, "./client/dist/")));
+//
+// app.get("*", (req,res) => {
+//   res.sendFile(path.join(__dirname, "./client/dist/index.html"));
+// });
