@@ -1,0 +1,188 @@
+"use client";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { cn } from "@/lib/utils";
+
+import { buttonVariants } from "@/components/ui/button";
+import { registerUser } from "@/actions/userActions";
+import { Icons } from "@/components/ui/icons";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function SignUp({ className, ...props }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { loading, isAuthenticated, error } = useSelector(
+    (state) => state.user,
+  );
+  const [user, setUser] = useState(
+    {
+      fName: "",
+      lName: "",
+      email: "",
+      password: "",
+    },
+    [isAuthenticated, navigate],
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated, navigate]);
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    dispatch(registerUser(user));
+  }
+
+  return (
+    <div className="lg:p-8">
+      <Link
+        to="/signup"
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "absolute right-4 top-4 md:right-8 md:top-8",
+        )}
+      >
+        Sign up
+      </Link>
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[450px]">
+        <div className="flex flex-col space-y-2 text-center">
+          <p className="text-muted-foreground text-sm">SIGN UP</p>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Create an account
+          </h1>
+        </div>
+        <div className={cn("grid gap-6", className)} {...props}>
+          <form onSubmit={onSubmit}>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <Label className="text-md font-bold text-black" htmlFor="fName">
+                  First Name
+                </Label>
+                <Input
+                  className="mb-3 text-black"
+                  required
+                  value={user.fName}
+                  onChange={(event) =>
+                    setUser({ ...user, fName: event.target.value })
+                  }
+                  id="fName"
+                  placeholder="myfirstname"
+                  type="text"
+                  autoCorrect="off"
+                  disabled={loading}
+                />
+                <Label className="text-md font-bold text-black" htmlFor="lName">
+                  Last Name
+                </Label>
+                <Input
+                  className="mb-3 text-black"
+                  value={user.lName}
+                  onChange={(event) =>
+                    setUser({ ...user, lName: event.target.value })
+                  }
+                  id="lName"
+                  placeholder="mylastname"
+                  type="text"
+                  autoCorrect="off"
+                  disabled={loading}
+                />
+                <Label className="text-md font-bold text-black" htmlFor="email">
+                  Email
+                </Label>
+                <Input
+                  required
+                  id="email"
+                  className="mb-3 text-black"
+                  value={user.email}
+                  onChange={(event) =>
+                    setUser({ ...user, email: event.target.value })
+                  }
+                  placeholder="name@example.com"
+                  type="email"
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  autoCorrect="off"
+                  disabled={loading}
+                />
+                <Label
+                  className="text-md font-bold text-black"
+                  htmlFor="password"
+                >
+                  Set a Password
+                </Label>
+                <Input
+                  required
+                  className="mb-3 text-black"
+                  value={user.password}
+                  onChange={(event) =>
+                    setUser({ ...user, password: event.target.value })
+                  }
+                  id="password"
+                  placeholder="verystrongpassword"
+                  type="password"
+                  autoCapitalize="none"
+                  autoComplete="new-password"
+                  autoCorrect="off"
+                  disabled={loading}
+                />
+              </div>
+              <Button disabled={loading}>
+                {loading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Sign Up with Email
+              </Button>
+
+              {error && (
+                <>
+                  <span className="text-pink-600">
+                    Signup Failed. Please try again later.
+                  </span>
+                  <span className="text-slate-500">- {error}</span>
+                </>
+              )}
+            </div>
+          </form>
+          {/* <div className="relative"> */}
+          {/*   <div className="absolute inset-0 flex items-center"> */}
+          {/*     <span className="w-full border-t" /> */}
+          {/*   </div> */}
+          {/*   <div className="relative flex justify-center text-xs uppercase"> */}
+          {/*     <span className="bg-background text-muted-foreground px-2"> */}
+          {/*       Or continue with */}
+          {/*     </span> */}
+          {/*   </div> */}
+          {/* </div> */}
+          {/* <Button variant="outline" type="button" disabled={loading}> */}
+          {/*   {loading ? ( */}
+          {/*     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" /> */}
+          {/*   ) : ( */}
+          {/*     <Icons.google className="mr-2 h-4 w-4" /> */}
+          {/*   )} */}
+          {/*   Google */}
+          {/* </Button> */}
+        </div>
+        <p className="text-muted-foreground px-8 text-center text-sm">
+          Your personal data will be used to support your experience throughout
+          this website, to manage access to your account, and for other purposes
+          described in our&nbsp;
+          <Link
+            to="/privacy-policy"
+            className="hover:text-primary underline underline-offset-4"
+          >
+            Privacy Policy
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+SignUp.propTypes = {
+  className: PropTypes.string, // String is optional
+};
