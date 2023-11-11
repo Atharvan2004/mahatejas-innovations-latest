@@ -22,7 +22,7 @@ export const getProducts = (query) => async (dispatch) => {
     const { product, type } = query;
 
     // from type extact the first word and use it as a route
-    let url = `http://localhost:3000/api/${product}/${type.split(" ")[0]}/`;
+    let url = `/api/${product}/${type.split(" ")[0]}/`;
     const { data } = await axios.get(url);
 
     dispatch(ALL_PRODUCTS_SUCCESS(data));
@@ -36,7 +36,7 @@ export const getProductInfo = (id) => async (dispatch) => {
   try {
     dispatch(PRODUCT_DETAILS_REQUEST());
 
-    let url = `http://localhost:3000/api/products/${id}`;
+    let url = `/api/products/${id}`;
 
     const { data } = await axios.get(url);
 

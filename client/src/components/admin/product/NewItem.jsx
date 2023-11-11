@@ -62,7 +62,7 @@ export default function NewItem() {
         },
       };
       const { res } = await axios.post(
-        "http://localhost:3000/admin/product/create",
+        "/admin/product/create",
         JSON.stringify({
           // backend using opposite naming for type and category
           type: selectedCat,

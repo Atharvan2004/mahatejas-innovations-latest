@@ -16,7 +16,7 @@ export const newOrder = (phone, address) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:3000/order/create",
+      "/order/create",
       { phone: phone, deliveryAddress: address },
       config,
     );

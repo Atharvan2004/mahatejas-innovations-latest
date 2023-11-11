@@ -10,12 +10,12 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
 
   async function fetchOrders() {
-    const { data } = await axios.get("http://localhost:3000/user/orders");
+    const { data } = await axios.get("/user/orders");
     setOrders(data.orders);
   }
 
   async function handleCancelOrder(o_id) {
-    const { data } = await axios.post(`http://localhost:3000/user/order/delete/${o_id}`);
+    const { data } = await axios.post(`/user/order/delete/${o_id}`);
     if (data.order) alert("Item Deleted")
     fetchOrders();
   }

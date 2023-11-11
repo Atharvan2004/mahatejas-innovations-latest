@@ -63,7 +63,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
         },
       };
       const { res } = await axios.post(
-        `http://localhost:3000/admin/product/update/${pi}`,
+        `/admin/product/update/${pi}`,
         JSON.stringify({
           // backend using opposite naming for type and category
           type: selectedCat,

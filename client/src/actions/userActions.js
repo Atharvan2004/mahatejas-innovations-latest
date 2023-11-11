@@ -52,7 +52,7 @@ export const registerUser = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:3000/user/register",
+      "/user/register",
       JSON.stringify(userData),
       config,
     );
@@ -75,7 +75,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:3000/user/login",
+      "/user/login",
       JSON.stringify({
         email: email,
         password: password,
@@ -94,7 +94,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch(LOAD_USER_REQUEST());
 
-    const { data } = await axios.get("http://localhost:3000/user/profile");
+    const { data } = await axios.get("/user/profile");
 
     dispatch(LOAD_USER_SUCCESS(data.user1));
   } catch (error) {
@@ -105,7 +105,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logoutUser = () => async (dispatch) => {
   try {
-    const { data } = await axios.get("http://localhost:3000/user/logout");
+    const { data } = await axios.get("/user/logout");
     console.log("response", data);
 
     dispatch(LOGOUT_USER_SUCCESS());

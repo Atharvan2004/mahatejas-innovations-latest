@@ -31,7 +31,7 @@ export default function ContactForm() {
 
       setIsSendingMail(true)
       const { data } = await axios.post(
-        "http://localhost:3000/user/feedback",
+        "/user/feedback",
         JSON.stringify({
           subject: subject,
           userName: fullName,

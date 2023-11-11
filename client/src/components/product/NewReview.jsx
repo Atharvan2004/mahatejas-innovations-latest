@@ -44,7 +44,7 @@ export default function NewReview() {
         },
       };
       await axios.put(
-        `http://localhost:3000/api/review/${_id}`,
+        `/api/review/${_id}`,
         JSON.stringify({
           comment: comment,
           rating: rating

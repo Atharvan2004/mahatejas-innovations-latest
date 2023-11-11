@@ -26,7 +26,7 @@ export default function ManageOrders() {
     }
 
     async function getOrders() {
-      const { data } = await axios.get("http://localhost:3000/admin/orders/")
+      const { data } = await axios.get("/admin/orders/")
       setOrders(alterSchema(data.orders))
     }
     getOrders()

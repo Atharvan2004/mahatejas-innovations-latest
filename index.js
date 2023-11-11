@@ -34,7 +34,7 @@ app.use("/order", Orouter);
 app.use("/admin", Arouter);
 
 app.use(express.static('public'))
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 })
 // // serve frontend

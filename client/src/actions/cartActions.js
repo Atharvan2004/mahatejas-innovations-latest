@@ -20,7 +20,7 @@ export const addToCart =
     };
 
     const { data } = await axios.post(
-      "http://localhost:3000/user/cart/add",
+      "/user/cart/add",
       JSON.stringify({ id: id, quantity: quantity, kv: kv }),
       config,
     );
@@ -30,7 +30,7 @@ export const addToCart =
 
 // add to cart
 export const fetchCart = () => async (dispatch) => {
-  const { data } = await axios.get("http://localhost:3000/user/cart/");
+  const { data } = await axios.get("/user/cart/");
 
   dispatch(FETCH_CART(data));
 };
@@ -44,7 +44,7 @@ export const deleteItemsFromCart = (id) => async (dispatch) => {
   };
 
   const { data } = await axios.post(
-    "http://localhost:3000/user/cart/delete",
+    "/user/cart/delete",
     JSON.stringify({ id: id }),
     config,
   );

@@ -15,7 +15,7 @@ export default function ManageProduct() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get("http://localhost:3000/admin/products");
+      const { data } = await axios.get("/admin/products");
       setProducts(data.productArray);
     }
     fetchData();
@@ -96,7 +96,7 @@ const ListItem = ({
       // Execute action after 2 seconds of holding
       setHolding(false); // Reset holding state after action execution
       axios
-        .post(`http://localhost:3000/admin/product/delete/${linkID}`)
+        .post(`/admin/product/delete/${linkID}`)
         .then((res) => {
           alert(res.data.message);
           isDeleted(true);

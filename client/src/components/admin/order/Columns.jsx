@@ -12,7 +12,7 @@ import propTypes from "prop-types";
 
 function handleAcceptOrder(o_id) {
   async function acceptOrder() {
-    const { data } = await axios.put(`http://localhost:3000/admin/orders/${o_id}/Accepted-By-Admin`);
+    const { data } = await axios.put(`/admin/orders/${o_id}/Accepted-By-Admin`);
     if (data.order) {
       alert("Item Accepted")
       return true;
@@ -23,7 +23,7 @@ function handleAcceptOrder(o_id) {
 }
 function handleCancelOrder(o_id) {
   async function cancelOrder() {
-    const { data } = await axios.put(`http://localhost:3000/admin/orders/${o_id}/Cancelled-By-Admin`);
+    const { data } = await axios.put(`/admin/orders/${o_id}/Cancelled-By-Admin`);
     if (data.order) {
       alert("Item Cancelled")
       return true;
