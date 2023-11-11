@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 
 export default function NewReview() {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -27,10 +27,7 @@ export default function NewReview() {
   const _id = useSelector((state) => state.productDetails.productInfo._id);
 
   const handleCommentLen = (event) => {
-    // Limit the input based on the maxLength
-    if (event.target.value.length <= 400) {
-      setComment(event.target.value);
-    }
+    setComment(event.target.value);
   };
 
 

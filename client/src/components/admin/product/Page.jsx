@@ -43,7 +43,7 @@ export default function ManageProduct() {
         </div>
 
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 grid grid-cols-1 gap-x-8 gap-y-5 px-10 md:grid-cols-3 lg:grid-cols-4">
+          <div className="mb-10 grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-3 lg:grid-cols-4">
             <NewItem />
             {/* {products.length > 0 && */}
             {products.map((arr) =>

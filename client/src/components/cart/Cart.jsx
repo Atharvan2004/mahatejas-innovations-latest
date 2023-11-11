@@ -13,6 +13,10 @@ import IMG404 from "@/assets/images/img404.jpg";
 export default function Cart() {
   const dispatch = useDispatch();
 
+  // uncomment for dev
+  // const [isCartEmpty, setIsCartEmpty] = useState(false);
+  // const [pageLoading, setPageLoading] = useState(false);
+  // const { cart, total } = {cart:[{image:"",name:"ji jfaksdfjklsdjf kldsjfaklfjd klfjkldsajkl",price:244}],total:2000}
   const [isCartEmpty, setIsCartEmpty] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const { cart, total } = useSelector((state) => state.cart.cartItems);
@@ -109,26 +113,26 @@ const CartItem = ({ data }) => {
           className="mx-auto aspect-square h-28 object-cover"
         />
         <div className="w-2/3 md:w-full">
-          <p className="text-2xl font-bold">{data && data.name}</p>
+          <p className="text font-semibold">{data && data.name}</p>
           <div className="flex w-full justify-between pr-5 md:justify-start">
-            <p className="mr-5 text-xl">
-              <b>Quantity:</b>&nbsp;{data && data.quantity && data.quantity}
+            <p className="mr-5 text-slate-700 text-sm">
+              <b>Quantity</b>:&nbsp;{data && data.quantity && data.quantity}
             </p>
-            <p className="text-xl">
+            <p className="mr-5 text-slate-700 text-sm">
               <b>KV:</b>&nbsp;{data && data.selectedKv}
             </p>
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-end">
-        <button className="mr-5" onClick={deleteItemhandler}>
+      <div className="flex md:flex-col justify-between items-end">
+        <button className="relative md:mr-7 bg-black rounded-md p-2 bottom-2 left-3"  onClick={deleteItemhandler}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="black"
-            className="h-6 w-6"
+            stroke="white"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"

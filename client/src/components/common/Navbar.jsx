@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
+import { useLocation } from 'react-router-dom';
 import {
   Bars3Icon,
   ShoppingBagIcon,
@@ -79,10 +80,15 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [open, setOpen] = useState(false);
+  const [productTabOpen, setProductTabOpen] = useState(false)
+
   const { isAuthenticated } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart.cartItems);
+
+  useEffect(() => { setOpen(false) }, [location])
 
   return (
     <div className="mb-10 bg-white">
@@ -112,21 +118,19 @@ export default function Navbar() {
               leaveTo="-translate-x-full"
             >
               <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                <div className="flex px-4 pb-2 pt-5">
+                <div className="flex px-4 justify-end pb-2 pt-5">
                   <button
                     type="button"
-                    className="relative top-14 -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                    className="relative  -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="absolute -inset-0.5" />
-                    <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
 
                 {/* Links */}
                 <Tab.Group as="div" className="mt-2">
-                  <div className="border-b border-gray-200">
+                  <div className="">
                     <Tab.List className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (
                         <Tab
@@ -136,50 +140,49 @@ export default function Navbar() {
                               selected
                                 ? "text-slate-800"
                                 : "border-transparent text-gray-900",
-                              "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium",
+                              "whitespace-nowrap border-b-2 pr-1 py-4 text-base font-medium",
                             )
                           }
+                          onClick={() => setProductTabOpen(prev => !prev)}
                         >
-                          {category.name}
+                          {category.name} &gt;
                         </Tab>
                       ))}
                     </Tab.List>
                   </div>
-                  <Tab.Panels as={Fragment}>
-                    {navigation.categories.map((category) => (
-                      <Tab.Panel
-                        key={category.name}
-                        className="space-y-10 px-4 pb-8 pt-10"
-                      >
-                        {category.sections.map((section) => (
-                          <div key={section.name}>
-                            <p
-                              id={`${category.id}-${section.id}-heading-mobile`}
-                              className="font-medium text-gray-900"
-                            >
-                              {section.name}
-                            </p>
-                            <ul
-                              role="list"
-                              aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                              className="mt-6 flex justify-between pr-1"
-                            >
-                              {section.items.map((item) => (
-                                <li key={item.name} className="flow-root">
-                                  <Link
-                                    to={item.href}
-                                    className="-m-2 block px-2 pt-1 text-gray-500"
-                                  >
-                                    {item.name}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </Tab.Panel>
-                    ))}
-                  </Tab.Panels>
+                  {productTabOpen &&
+                    <Tab.Panels as={Fragment}>
+                      {navigation.categories.map((category) => (
+                        <Tab.Panel
+                          key={category.name}
+                          className="space-y-5 px-4 pb-8 pt-5"
+                        >
+                          {category.sections.map((section) => (
+                            <div key={section.name}>
+                              <p
+                                id={`${category.id}-${section.id}-heading-mobile`}
+                                className="font-medium text-gray-900"
+                              >
+                                {section.name}
+                              </p>
+                              <ul
+                                role="list"
+                                aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                                className="mt-2 flex flex-col space-y-1"
+                              >
+                                {section.items.map((item) => (
+                                  <li key={item.name} className="flow-root">
+                                    <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                      {item.name}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>                            </div>
+                          ))}
+                        </Tab.Panel>
+                      ))}
+                    </Tab.Panels>
+                  }
                 </Tab.Group>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -272,8 +275,6 @@ export default function Navbar() {
                 className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
 

@@ -19,7 +19,7 @@ export default function SignIn({ className, ...props }) {
   const navigate = useNavigate();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { loading, isAuthenticated, error } = useSelector( (state) => state.user,);
+  const { loading, isAuthenticated, error } = useSelector((state) => state.user,);
 
   const [user, setUser] = useState({
     email: "",
@@ -29,9 +29,12 @@ export default function SignIn({ className, ...props }) {
   async function onSubmit(event) {
     event.preventDefault();
     await dispatch(loginUser(user.email, user.password));
-    if (isAuthenticated && user.email===import.meta.env.VITE_ADMIN_EMAIL) navigate("/admin/manage-orders")
-    else if (isAuthenticated) navigate("/");
   }
+
+  useEffect(()=>{
+    if (isAuthenticated && user.email === import.meta.env.VITE_ADMIN_EMAIL) navigate("/admin/manage-orders")
+    else if (isAuthenticated) navigate("/");
+  },[isAuthenticated,navigate,user])
 
   return (
     <div className="lg:p-8">
@@ -78,7 +81,7 @@ export default function SignIn({ className, ...props }) {
                     className="text-md font-bold text-black"
                     htmlFor="password"
                   >
-                    Set a Password
+                    Your password
                   </Label>
                   <Input
                     required

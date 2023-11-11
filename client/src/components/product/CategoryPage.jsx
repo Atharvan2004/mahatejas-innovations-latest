@@ -31,7 +31,8 @@ export default function CategoryPage() {
 
   useEffect(() => {
     dispatch(getProducts({ product: catname, type: currentType }));
-  }, [catname, currentType, dispatch]);
+  }, [type, catname, currentType, dispatch]);
+
   useEffect(() => {
     if (types[catname] === undefined || types[catname].length < type) {
       navigate("/404");
@@ -67,6 +68,7 @@ export default function CategoryPage() {
               <Button
                 key={index}
                 variant={variant}
+                className="scale-90 md:scale-100"
                 onClick={() => {
                   setCurrentType(type);
                 }}
@@ -83,7 +85,7 @@ export default function CategoryPage() {
               <LoadingSkeleton key={index} />
             ))
             : !products
-              ? <div><p>No products for this category...</p></div> 
+              ? <div><p>No products for this category...</p></div>
               : products.map((product) => {
                 const { _id, name, price, image_url } = product;
                 return (

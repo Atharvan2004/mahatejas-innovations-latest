@@ -30,6 +30,7 @@ const router = createBrowserRouter([
   { path: "about/", element: <About /> },
   { path: "admin/manage-orders", element: <ProtectedRoute isAdmin={true}><ManageOrders /></ProtectedRoute> },
   { path: "admin/manage-products", element: <ProtectedRoute isAdmin={true}><ManageProducts /></ProtectedRoute> },
+  // { path: "cart/", element: <Cart /> },
   { path: "cart/", element: <ProtectedRoute> <Cart /> </ProtectedRoute> },
   { path: "category/:catname/:type", element: <CategoryPage /> },
   { path: "contact/", element: <Contact /> },

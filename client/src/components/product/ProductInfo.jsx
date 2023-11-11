@@ -20,7 +20,6 @@ export default function ProductInfo() {
   const [selectedKv, setSelectedKv] = useState(100);
   const [isAdded, setIsAdded] = useState(false);
   const {
-    _id,
     name,
     rating,
     kv,
@@ -135,12 +134,12 @@ export default function ProductInfo() {
 
 const StarRating = ({ rating }) => {
   const given_stars = [];
-  for (let i = 0; i < rating; i++) {
+  for (let i = 0; i < Math.floor(rating); i++) {
     given_stars.push(i);
   }
 
   const remaning_stars = [];
-  for (let i = 0; i < 5 - rating; i++) {
+  for (let i = 0; i < 5 - Math.floor(rating); i++) {
     remaning_stars.push(i);
   }
   return (
@@ -173,8 +172,11 @@ const StarRating = ({ rating }) => {
           />
         </svg>
       ))}
-      <a href="#reviews" className="ml-2 text-lg">
-      </a>
+      {rating >= 1 &&
+        <a href="#reviews" className="ml-2 text-center block tracking-tight">
+          {Math.floor(rating * 100) / 100}/5 rating
+        </a>
+      }
     </div>
   );
 };
@@ -203,11 +205,11 @@ const KVselector = ({ kv, selectedKv, setSelectedKv }) => {
   return (
     <div className="mt-5 md:m-0">
       <div>
-      <span className="mb-2 mt-1">Select KV ( </span>
-      {kv.map((i, index) => (
-        <span key={index}>{i}, </span>
-      ))}
-      <span> or enter custom )</span>
+        <span className="mb-2 mt-1">Select KV ( </span>
+        {kv.map((i, index) => (
+          <span key={index}>{i}, </span>
+        ))}
+        <span> or enter custom )</span>
       </div>
       <div className="flex max-w-[120px] rounded-sm border border-slate-200 hover:border-slate-700">
         <button

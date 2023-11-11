@@ -174,12 +174,12 @@ const CartItem = ({ data }) => {
           className="mx-auto aspect-square h-28 object-cover"
         />
         <div className="w-2/3 md:w-full">
-          <p className="text-2xl font-bold">{data && data.name}</p>
+          <p className="text font-semibold">{data && data.name}</p>
           <div className="flex w-full justify-between pr-5 md:justify-start">
-            <p className="mr-5 text-xl">
-              <b>Quantity:</b>&nbsp;{data && data.quantity && data.quantity}
+            <p className="mr-5 text-slate-700 text-sm">
+              <b>Quantity</b>:&nbsp;{data && data.quantity && data.quantity}
             </p>
-            <p className="text-xl">
+            <p className="mr-5 text-slate-700 text-sm">
               <b>KV:</b>&nbsp;{data && data.selectedKv}
             </p>
           </div>
