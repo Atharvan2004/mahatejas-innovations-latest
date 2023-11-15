@@ -36,7 +36,7 @@ export const getProductInfo = (id) => async (dispatch) => {
   try {
     dispatch(PRODUCT_DETAILS_REQUEST());
 
-    let url = `/api/products/${id}`;
+    let url = `http://localhost:3000/api/products/${id}`;
 
     const { data } = await axios.get(url);
 
@@ -47,3 +47,18 @@ export const getProductInfo = (id) => async (dispatch) => {
     return [];
   }
 };
+// export const getProductInfo = (id) => async (dispatch) => {
+//   try {
+//     dispatch(PRODUCT_DETAILS_REQUEST());
+//
+//     let url = `/api/products/${id}`;
+//
+//     const { data } = await axios.get(url);
+//
+//     dispatch(PRODUCT_DETAILS_SUCCESS(data));
+//   } catch (error) {
+//     console.log("error", error);
+//     dispatch(PRODUCT_DETAILS_FAIL(error.respsonse.data));
+//     return [];
+//   }
+// };

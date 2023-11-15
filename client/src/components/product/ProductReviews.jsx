@@ -33,25 +33,25 @@ export default function ProductReviews({ p_rating = 3.21222, reviewList = testRe
     return <NoReviews />;
 
   const scrollLeft = () => {
-    let scrollBy=0;
-    if(window.innerWidth>1085)scrollBy=510;
-    else if(window.innerWidth>1024)scrollBy=window.innerWidth/3+100;
-    else scrollBy=window.innerWidth*0.87;
-    
+    let scrollBy = 0;
+    if (window.innerWidth > 1085) scrollBy = 510;
+    else if (window.innerWidth > 1024) scrollBy = window.innerWidth / 3 + 100;
+    else scrollBy = window.innerWidth * 0.87;
+
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
-        left: -1*scrollBy, // Adjust the scroll distance as needed
+        left: -1 * scrollBy, // Adjust the scroll distance as needed
         behavior: "smooth",
       });
     }
   };
 
   const scrollRight = () => {
-    let scrollBy=0;
-    if(window.innerWidth>1085)scrollBy=510;
-    else if(window.innerWidth>1024)scrollBy=window.innerWidth/3+67;
-    else scrollBy=window.innerWidth*0.87;
-    
+    let scrollBy = 0;
+    if (window.innerWidth > 1085) scrollBy = 510;
+    else if (window.innerWidth > 1024) scrollBy = window.innerWidth / 3 + 67;
+    else scrollBy = window.innerWidth * 0.87;
+
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
         left: scrollBy, // Adjust the scroll distance as needed
@@ -61,73 +61,75 @@ export default function ProductReviews({ p_rating = 3.21222, reviewList = testRe
   };
 
   return (
-    <div className="relative mx-auto mb-10 w-full max-w-7xl px-5">
-      {/* Left Scroll Button */}
-      <button
-        className="absolute left-5 top-80 flex scale-75 md:scale-100 opacity-80 h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full bg-gray-200 text-gray-600 transition duration-300 hover:scale-105 hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
-        onClick={scrollLeft}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+    <div id="reviews" className="bg-white">
+      <div className="bg-white py-5 relative mx-auto mb-10 w-full max-w-7xl px-5">
+        {/* Left Scroll Button */}
+        <button
+          className="absolute left-5 top-80 flex scale-75 md:scale-100 opacity-80 h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full bg-gray-200 text-gray-600 transition duration-300 hover:scale-105 hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
+          onClick={scrollLeft}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 12H6M12 5l-7 7 7 7"
-          ></path>
-        </svg>
-      </button>
-      <h1>Product Review</h1>
-      <div>
-        <StarRating rating={p_rating} />
-        {/* if multiple reviews add 's'*/}
-        <p className="mr-2">{reviewList && reviewList.length} Review{reviewList && reviewList.length > 1 && "s"}</p>
-      </div>
-      {/* Carousel container */}
-      <div
-        className="flex w-full overflow-x-hidden py-5"
-        ref={carouselRef}
-      >
-        <div className="flex w-[90%] lg:w-[40%]">
-          {reviewList &&
-            reviewList.map((review, index) => (
-              <Card
-                key={index}
-                author={review.name}
-                review_msg={review.comment}
-                order_date={formatDate(review.date)}
-                stars={review.rating}
-              />
-            ))}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 12H6M12 5l-7 7 7 7"
+            ></path>
+          </svg>
+        </button>
+        <h1>Product Review</h1>
+        <div>
+          <StarRating rating={p_rating} />
+          {/* if multiple reviews add 's'*/}
+          <p className="mr-2">{reviewList && reviewList.length} Review{reviewList && reviewList.length > 1 && "s"}</p>
         </div>
-      </div>
-      {/* Right Scroll Button */}
-      <button
-        className="absolute right-5 scale-75 md:scale-100 opacity-90 top-80 flex h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full bg-gray-200 text-gray-600 transition duration-300 hover:scale-105 hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
-        onClick={scrollRight}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+        {/* Carousel container */}
+        <div
+          className="flex w-full overflow-x-hidden py-5"
+          ref={carouselRef}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M5 12h13M12 5l7 7-7 7"
-          ></path>
-        </svg>
-      </button>
-      <NewReview />
-    </div >
+          <div className="flex w-[90%] lg:w-[40%]">
+            {reviewList &&
+              reviewList.map((review, index) => (
+                <Card
+                  key={index}
+                  author={review.name}
+                  review_msg={review.comment}
+                  order_date={formatDate(review.date)}
+                  stars={review.rating}
+                />
+              ))}
+          </div>
+        </div>
+        {/* Right Scroll Button */}
+        <button
+          className="absolute right-5 scale-75 md:scale-100 opacity-90 top-80 flex h-10 w-10 -translate-y-1/2 transform items-center justify-center rounded-full bg-gray-200 text-gray-600 transition duration-300 hover:scale-105 hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
+          onClick={scrollRight}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 12h13M12 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+        <NewReview />
+      </div >
+    </div>
   );
 }
 

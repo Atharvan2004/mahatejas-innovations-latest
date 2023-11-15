@@ -1,9 +1,27 @@
 import LandingImg from "@/assets/images/landing.jpg";
 import clsx from "clsx";
+import { useState, useEffect } from "react";
 
 export default function LandingBanner() {
+  const imgArr = ["https://i.imgur.com/1u6NY7ls.jpg", "https://i.imgur.com/tJcPgxLs.jpg", "https://i.imgur.com/sWeXAOPs.jpg", "https://i.imgur.com/vqFUZbss.jpg", "https://i.imgur.com/CnVpUnKs.png"]
+  const [currImg, setCurrImg] = useState(0);
+
+  function nxtImg() {
+    currImg === imgArr.length - 1 ? setCurrImg(0) : setCurrImg(prev => prev + 1)
+  }
+  function prevImg() {
+    currImg === 0 ? setCurrImg(imgArr.length - 1) : setCurrImg(prev => prev - 1)
+  }
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     currImg === imgArr.length - 1? setCurrImg(0) : setCurrImg(prev => prev + 1)
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [imgArr.length,currImg]);
+
   return (
-    <div className="relative mx-auto mb-16 w-full max-w-[1600px] px-5">
+    <div className="relative mx-auto mb-5 w-full max-w-[1600px] px-5">
       {/* dotted decoration */}
       <div className={clsx("absolute right-4", "md:left-24 md:top-12")}>
         <DotPattern />
@@ -18,13 +36,29 @@ export default function LandingBanner() {
           <p className="font-light">We are OEM manufacturer of India</p>
         </div>
       </div>
-      {/* image */}
+      {/* img carousel */}
+      <button
+        className="w-10 h-10 absolute bottom-0 md:top-0 right-5 bg-slate-800 bg-opacity-50 flex justify-center items-center"
+        onClick={nxtImg}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6">
+          <path d="M5.055 7.06c-1.25-.714-2.805.189-2.805 1.628v8.123c0 1.44 1.555 2.342 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.342 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256L14.805 7.06C13.555 6.346 12 7.25 12 8.688v2.34L5.055 7.06z" />
+        </svg>
+      </button>
+      <button
+        className="w-10 h-10 absolute bottom-0 md:top-0 right-[3.75rem] bg-slate-800 bg-opacity-50 flex justify-center items-center"
+        onClick={prevImg}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6">
+          <path d="M9.195 18.44c1.25.713 2.805-.19 2.805-1.629v-2.34l6.945 3.968c1.25.714 2.805-.188 2.805-1.628V8.688c0-1.44-1.555-2.342-2.805-1.628L12 11.03v-2.34c0-1.44-1.555-2.343-2.805-1.629l-7.108 4.062c-1.26.72-1.26 2.536 0 3.256l7.108 4.061z" />
+        </svg>
+      </button>
       <img
-        src={LandingImg}
+        src={imgArr[currImg]}
         alt="Landing"
         className={clsx(
           "h-[40vh] w-full object-cover",
-          "md:absolute md:right-5 md:top-0 md:-z-10 md:h-[85vh] md:w-4/5",
+          "md:absolute md:right-5 md:top-0 md:-z-10 md:h-[80vh] md:w-4/5",
         )}
       />
     </div>

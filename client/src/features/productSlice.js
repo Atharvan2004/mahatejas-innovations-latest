@@ -42,7 +42,7 @@ export const productSlice = createSlice({
     [ADMIN_PRODUCTS_FAIL]: () => { },
     [ADMIN_PRODUCTS_REQUEST]: () => { },
     [ADMIN_PRODUCTS_SUCCESS]: () => { },
-    [ALL_PRODUCTS_FAIL]: (state,action) => {
+    [ALL_PRODUCTS_FAIL]: (state, action) => {
       state.loading = false
       state.error = action.payload
       console.log("fail")
@@ -74,7 +74,22 @@ export const productSlice = createSlice({
 
 export const productDetailsSlice = createSlice({
   name: "productDetails",
-  initialState: { productInfo: {} },
+  initialState: {
+    productInfo: {
+      _id: "",
+      name: "",
+      description: "",
+      price: 0,
+      kv: [{ val: 0, img: [""] }],
+      weight: [0],
+      category: "",
+      min_quantity: 0,
+      image_url: [""],
+      reviews: [{ name: "", date: "", comment: "", rating: 5, _id: "", }],
+      rating: 0,
+      overview_img:[""]
+    }
+  },
   reducers: {
     [PRODUCT_DETAILS_REQUEST]: (state) => {
       state.loading = true;

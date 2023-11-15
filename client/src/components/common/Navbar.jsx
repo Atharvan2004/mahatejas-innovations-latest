@@ -67,10 +67,9 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
     { name: "OEM/ODM", href: "/oem-odm" },
+    { name: "Contact", href: "/contact" },
+    { name: "About", href: "/about" },
   ],
 };
 
@@ -186,6 +185,11 @@ export default function Navbar() {
                 </Tab.Group>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                  <div className="flow-root">
+                    <Link to='/' className="-m-2 block p-2 font-medium text-gray-900" >
+                      Home
+                    </Link>
+                  </div>
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
                       <Link
@@ -289,6 +293,12 @@ export default function Navbar() {
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
+                  <Link
+                    to='/'
+                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                  >
+                    Home
+                  </Link>
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
                       {({ open }) => (
