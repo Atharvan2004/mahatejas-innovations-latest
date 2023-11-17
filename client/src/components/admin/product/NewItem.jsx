@@ -31,7 +31,8 @@ const typeOptions = {
 };
 
 export default function NewItem() {
-  const [previewImage, setPreviewImage] = useState(null);
+  const [imgfiles, setImgfiles] = useState([]);
+  const [imgPreview, setImgPreview] = useState([]);
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [name, setName] = useState("");
@@ -41,19 +42,26 @@ export default function NewItem() {
   const [weight, setWeight] = useState("");
   const [minQuantity, setMinQuantity] = useState("");
 
-  const handleImageUpload = (event) => {
-    event.preventDefault();
-    const file = event.target.files[0];
-    // Display the preview of the selected image
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImgfiles(files);
+
+    // Display image previews
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setImgPreview(previews);
   };
 
-  const handleAddProduct = (event) => {
+  const handleAddProduct = async (event) => {
     event.preventDefault();
+    const base64Promises = imgfiles.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+    });
+
+    const base64Images = await Promise.all(base64Promises);
 
     async function sendData() {
       const config = {
@@ -73,12 +81,13 @@ export default function NewItem() {
           weight: weight,
           min_quantity: minQuantity,
           category: selectedType,
-          image: previewImage,
+          image: base64Images,
         }),
         config,
       );
     }
     sendData();
+    console.log(base64Images);
   };
   return (
     <Dialog>
@@ -102,7 +111,7 @@ export default function NewItem() {
           <DialogTitle>Add a new Product</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleAddProduct}>
-          <div className="mb-5 flex justify-center">
+          <div className="mb-5 grid grid-cols-5">
             <label
               htmlFor="file-upload"
               className="mr-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-400 "
@@ -120,20 +129,22 @@ export default function NewItem() {
                 />
               </svg>
               <input
-                onChange={handleImageUpload}
+                multiple
+                onChange={handleFileChange}
                 id="file-upload"
                 name="file-upload"
                 type="file"
                 className="hidden"
               />
             </label>
-            {previewImage && (
+            {imgPreview.map((img, index) => (
               <img
-                src={previewImage}
+                key={index}
+                src={img}
                 alt="Preview"
                 className="h-20 w-20 object-cover"
               />
-            )}
+            ))}
           </div>
           <div className="mx-auto mb-5 grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="name" className="text-black">
