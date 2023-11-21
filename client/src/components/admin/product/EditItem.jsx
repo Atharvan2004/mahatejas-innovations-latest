@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import propTypes from "prop-types";
+import ImgUpload from "../../common/ImgUpload";
 
 import {
   Dialog,
@@ -9,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,7 +33,7 @@ const typeOptions = {
 };
 
 export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
-  const [previewImage, setPreviewImage] = useState(pi);
+  const [imgUrl, setImgUrl] = useState(null);
   const [selectedCat, setSelectedCat] = useState("Multimotor");
   const [selectedType, setSelectedType] = useState("Lite Series");
   const [name, setName] = useState(na);
@@ -42,19 +43,14 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
   const [weight, setWeight] = useState(we);
   const [minQuantity, setMinQuantity] = useState(mq);
 
-  const handleImageUpload = (event) => {
-    event.preventDefault();
-    const file = event.target.files[0];
-    // Display the preview of the selected image
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleEditProduct = (event) => {
     event.preventDefault();
+
+    // dont send if images not set
+    if (!imgUrl) {
+      alert("Please upload an image");
+      return;
+    }
 
     async function sendData() {
       const config = {
@@ -62,7 +58,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           "Content-Type": "application/json",
         },
       };
-      const { res } = await axios.post(
+      await axios.post(
         `/admin/product/update/${pi}`,
         JSON.stringify({
           // backend using opposite naming for type and category
@@ -74,7 +70,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           weight: weight,
           min_quantity: minQuantity,
           category: selectedType.split(" ")[0],
-          image: previewImage,
+          image_url: imgUrl,
         }),
         config,
       );
@@ -99,40 +95,10 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>
         </DialogHeader>
+        <div className="flex justify-center">
+          <ImgUpload setImgUrl={setImgUrl} />
+        </div>
         <form onSubmit={handleEditProduct}>
-          <div className="mb-5 flex justify-center">
-            <label
-              htmlFor="file-upload"
-              className="mr-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-400 "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="gray"
-                className="h-6 w-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <input
-                onChange={handleImageUpload}
-                id="file-upload"
-                name="file-upload"
-                type="file"
-                className="hidden"
-              />
-            </label>
-            {previewImage && (
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="h-20 w-20 object-cover"
-              />
-            )}
-          </div>
           <div className="mx-auto mb-5 grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="name" className="text-black">
               Product name
@@ -242,7 +208,10 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           </div>
           <DialogFooter className="mx-auto w-full max-w-sm">
             <DialogClose asChild>
-              <button type="submit" className="float-right w-24 rounded-md bg-black px-5 py-2 text-white">
+              <button
+                type="submit"
+                className="float-right w-24 rounded-md bg-black px-5 py-2 text-white"
+              >
                 Confirm
               </button>
             </DialogClose>

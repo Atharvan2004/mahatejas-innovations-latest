@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-
 import {
   Dialog,
   DialogContent,
@@ -8,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogClose
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import ImgUpload from "../../common/ImgUpload";
 
 const catOptions = ["Multimotor", "Airplane", "Esc", "Fpv", "Propeller"];
 const typeOptions = {
@@ -31,45 +31,33 @@ const typeOptions = {
 };
 
 export default function NewItem() {
-  const [imgfiles, setImgfiles] = useState([]);
-  const [imgPreview, setImgPreview] = useState([]);
+  const [imgUrl, setImgUrl] = useState(null);
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [kv, setKv] = useState("");
   const [price, setPrice] = useState("");
   const [weight, setWeight] = useState("");
   const [minQuantity, setMinQuantity] = useState("");
-
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImgfiles(files);
-
-    // Display image previews
-    const previews = files.map((file) => URL.createObjectURL(file));
-    setImgPreview(previews);
-  };
+  const [kv, setKv] = useState("");
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
-    const base64Promises = imgfiles.map((file) => {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.readAsDataURL(file);
-      });
-    });
 
-    const base64Images = await Promise.all(base64Promises);
+    // dont send if images not set
+    if (!imgUrl) {
+      alert("Please upload an image");
+      return;
+    }
 
     async function sendData() {
+      // Send data to backend
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const { res } = await axios.post(
+      await axios.post(
         "/admin/product/create",
         JSON.stringify({
           // backend using opposite naming for type and category
@@ -77,21 +65,20 @@ export default function NewItem() {
           name: name,
           description: description,
           price: price,
-          kv: kv.split(","),
+          kv: kv,
           weight: weight,
           min_quantity: minQuantity,
           category: selectedType,
-          image: base64Images,
+          image_url: imgUrl,
         }),
         config,
       );
     }
     sendData();
-    console.log(base64Images);
   };
   return (
     <Dialog>
-      <DialogTrigger className="flex flex-col items-center justify-center border-2 border-dashed border-black bg-white hover:bg-slate-100">
+      <DialogTrigger className="flex flex-col md:h-[440px] items-center justify-center border-2 border-dashed border-black bg-white hover:bg-slate-100">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -110,42 +97,10 @@ export default function NewItem() {
         <DialogHeader>
           <DialogTitle>Add a new Product</DialogTitle>
         </DialogHeader>
+        <div className="flex justify-center">
+          <ImgUpload setImgUrl={setImgUrl} />
+        </div>
         <form onSubmit={handleAddProduct}>
-          <div className="mb-5 grid grid-cols-5">
-            <label
-              htmlFor="file-upload"
-              className="mr-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-400 "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="gray"
-                className="h-6 w-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <input
-                multiple
-                onChange={handleFileChange}
-                id="file-upload"
-                name="file-upload"
-                type="file"
-                className="hidden"
-              />
-            </label>
-            {imgPreview.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt="Preview"
-                className="h-20 w-20 object-cover"
-              />
-            ))}
-          </div>
           <div className="mx-auto mb-5 grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="name" className="text-black">
               Product name
@@ -243,8 +198,12 @@ export default function NewItem() {
           </div>
           <DialogFooter className="mx-auto w-full max-w-sm">
             <DialogClose asChild>
-              <button type="submit" className="float-right w-20 rounded-md bg-black px-5 py-2 text-white">
-                Add
+              <button
+                type="submit"
+                disabled={!imgUrl}
+                className="float-right rounded-md bg-black px-5 py-2 text-white"
+              >
+                {imgUrl ? "Add" : " Upload image(s) first"}
               </button>
             </DialogClose>
           </DialogFooter>

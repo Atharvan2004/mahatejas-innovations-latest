@@ -7,10 +7,11 @@ import axios from "axios";
 
 import NewItem from "@/components/admin/product/NewItem";
 import EditItem from "@/components/admin/product/EditItem";
+import AddKv from "./AddKv";
 import IMG404 from "@/assets/images/img404.jpg";
 
 export default function ManageProduct() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -37,7 +38,12 @@ export default function ManageProduct() {
             <h1>Welcome Back!</h1>
             <p>Here is the list of all the orders...</p>
           </div>
-          <button onClick={() => { dispatch(logoutUser()) }} className="px-5 h-10 border-2 border-black rounded-md">
+          <button
+            onClick={() => {
+              dispatch(logoutUser());
+            }}
+            className="px-5 h-10 border-2 border-black rounded-md"
+          >
             Logout
           </button>
         </div>
@@ -95,12 +101,10 @@ const ListItem = ({
     holdTimer = setTimeout(() => {
       // Execute action after 2 seconds of holding
       setHolding(false); // Reset holding state after action execution
-      axios
-        .post(`/admin/product/delete/${linkID}`)
-        .then((res) => {
-          alert(res.data.message);
-          isDeleted(true);
-        });
+      axios.post(`/admin/product/delete/${linkID}`).then((res) => {
+        alert(res.data.message);
+        isDeleted(true);
+      });
     }, 2000);
   };
 
@@ -119,7 +123,10 @@ const ListItem = ({
     title = title.substring(0, TITLE_MAX_LENGTH) + "...";
   }
   return (
-    <div className="flex flex-col justify-between bg-white shadow-md hover:scale-105 hover:shadow-xl">
+    <div className="flex relative flex-col justify-between bg-white shadow-md hover:scale-105 hover:shadow-xl">
+      <div className="absolute top-0 right-0">
+        {kv && <AddKv p_id={linkID} kv={kv.split(",")} />});
+      </div>
       <img
         src={img && img[0] ? img[0] : IMG404}
         className="mx-auto mb-2 aspect-square h-52 object-cover md:h-auto md:w-[90%] md:p-5"

@@ -80,7 +80,7 @@ export const productDetailsSlice = createSlice({
       name: "",
       description: "",
       price: 0,
-      kv: [{ val: 0, img: [""] }],
+      kv: [0],
       weight: [0],
       category: "",
       min_quantity: 0,

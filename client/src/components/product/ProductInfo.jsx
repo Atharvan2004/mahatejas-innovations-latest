@@ -8,7 +8,7 @@ import Footer from "@/components/common/Footer";
 import ProductReviews from "@/components/product/ProductReviews";
 import { getProductInfo } from "@/actions/productActions";
 import { addToCart } from "@/actions/cartActions";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function ProductInfo() {
   const dispatch = useDispatch();
@@ -24,12 +24,12 @@ export default function ProductInfo() {
     min_quantity,
     image_url,
     reviews,
-    rating
-  } = useSelector((state) => state.productDetails.productInfo)
-  const { productInfo } = useSelector((state) => state.productDetails)
+    rating,
+  } = useSelector((state) => state.productDetails.productInfo);
+  const { productInfo } = useSelector((state) => state.productDetails);
 
   useEffect(() => {
-    dispatch(getProductInfo(id))
+    dispatch(getProductInfo(id));
   }, [id, dispatch]);
 
   return (
@@ -39,50 +39,80 @@ export default function ProductInfo() {
         <Header name={name} reviewCount={reviews.length} rating={rating} />
         <div className="grid grid-cols-1 mb-10 md:grid-cols-2">
           <ImageDisplay arr={image_url} />
-          <Details _id={_id} kv={kv} min_quantity={min_quantity} price={price} description={description} />
+          <Details
+            _id={_id}
+            kv={kv}
+            min_quantity={min_quantity}
+            price={price}
+            description={description}
+          />
         </div>
       </div>
-      <InfoTabs kv={kv}/>
+      <InfoTabs kv={kv} />
       <ProductReviews p_rating={rating} reviewList={reviews} />
       <Footer />
     </div>
-  )
+  );
 }
 
-function InfoTabs({kvBAK}) {
-   const kv = [
-     { val: 500, img: ["https://i.imgur.com/1u6NY7ls.jpg", "https://i.imgur.com/tJcPgxLs.jpg"] },
-     { val: 200, img: ["https://i.imgur.com/tJcPgxLs.jpg"] },
-   ]
+function InfoTabs({ kvBAK }) {
+  const kv = [
+    {
+      val: 500,
+      img: [
+        "https://i.imgur.com/1u6NY7ls.jpg",
+        "https://i.imgur.com/tJcPgxLs.jpg",
+      ],
+    },
+    { val: 200, img: ["https://i.imgur.com/tJcPgxLs.jpg"] },
+  ];
   return (
     <div className="max-w-7xl mb-5 py-5 mx-auto bg-white px-5">
       <Tabs defaultValue="overview" className="text-black">
         <TabsList className="rounded-none w-full justify-start">
-          <TabsTrigger value="overview" className="rounded-none text-xl">Overview</TabsTrigger>
-          {kv.map((item, index) =>
-            <TabsTrigger key={index} value={`KV${item.val}`} className="rounded-none text-xl">{`KV${item.val}`}</TabsTrigger>
-          )}
+          <TabsTrigger value="overview" className="rounded-none text-xl">
+            Overview
+          </TabsTrigger>
+          {kv.map((item, index) => (
+            <TabsTrigger
+              key={index}
+              value={`KV${item.val}`}
+              className="rounded-none text-xl"
+            >{`KV${item.val}`}</TabsTrigger>
+          ))}
         </TabsList>
-        <TabsContent value="overview"><img src="https://cdn.shopify.com/s/files/1/2024/0305/files/V3506__01.jpg?v=1496803009" className="w-full" /></TabsContent>
-        {kv.map((item, index) =>
+        <TabsContent value="overview">
+          <img
+            src="https://cdn.shopify.com/s/files/1/2024/0305/files/V3506__01.jpg?v=1496803009"
+            className="w-full"
+          />
+        </TabsContent>
+        {kv.map((item, index) => (
           <TabsContent key={index} value={`KV${item.val}`}>
-          {item.img.map((i,index)=><img src={i} key={index} className="w-full mb-2"/>)}
+            {item.img.map((i, index) => (
+              <img src={i} key={index} className="w-full mb-2" />
+            ))}
           </TabsContent>
-        )}
+        ))}
       </Tabs>
     </div>
-  )
+  );
 }
-InfoTabs.propTypes={
-  kv:propTypes.array,
-}
+InfoTabs.propTypes = {
+  kv: propTypes.array,
+};
 
 function Details({ _id, kv, min_quantity, price, description }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(min_quantity);
   const [selectedKv, setSelectedKv] = useState(kv[0]);
   const [isAdded, setIsAdded] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    setQuantity(min_quantity);
+    setSelectedKv(kv[0]);
+  }, [kv, min_quantity]);
 
   function handleAddToCart() {
     if (!isAuthenticated) {
@@ -92,11 +122,14 @@ function Details({ _id, kv, min_quantity, price, description }) {
       setIsAdded(true);
     }
   }
-
+  console.log("kv", kv);
+  console.log("0th", kv[0]);
 
   return (
     <div className="px-0 bg-white md:ml-3 md:px-5">
-      <p className="text-2xl border-b border-black pb-2 my-2">Product Details</p>
+      <p className="text-2xl border-b border-black pb-2 my-2">
+        Product Details
+      </p>
       {/* Price */}
       <p className="mb-5 text-2xl">
         &#x20B9; <b>{price}</b>
@@ -113,15 +146,18 @@ function Details({ _id, kv, min_quantity, price, description }) {
         )}
         {/* KV  */}
         <div>
-          <KVselector
-            selectedKv={selectedKv}
-            setSelectedKv={setSelectedKv}
-          />
+          {kv[0] && (
+            <KVselector selectedKv={selectedKv} setSelectedKv={setSelectedKv} />
+          )}
         </div>
       </div>
       <div className="flex justify-evenly">
         <p></p>
-        <p> <span>( </span> {kv.map((i, index) => (<span key={index}>{i.val}, </span>))} <span> or enter custom ) *</span></p>
+        <p>
+          <span>( </span>
+          {kv[0] && kv.map((i, index) => <span key={index}>{i.val}, </span>)}
+          <span> or enter custom ) *</span>
+        </p>
       </div>
       {/* Add to cart */}
       {isAdded ? (
@@ -146,20 +182,20 @@ function Details({ _id, kv, min_quantity, price, description }) {
           : "No description provided"}
       </p>
     </div>
-  )
+  );
 }
 Details.propTypes = {
   _id: propTypes.string,
   price: propTypes.number,
   kv: propTypes.array,
   description: propTypes.string,
-  min_quantity: propTypes.number
-}
+  min_quantity: propTypes.number,
+};
 
 const KVselector = ({ selectedKv, setSelectedKv }) => {
   // quantity functions
   function increaseQuantity() {
-    setSelectedKv((prev) => prev + 50);
+    setSelectedKv((prev) => nprev + 50);
   }
   function decreaseQuantity() {
     if (selectedKv < 50) return;
@@ -188,7 +224,7 @@ const KVselector = ({ selectedKv, setSelectedKv }) => {
         </button>
         <input
           type="number"
-          value={selectedKv}
+          value={0}
           className="w-12 bg-white text-center text-black"
           onChange={customQuantity}
           onBlur={checkQuantity}
@@ -261,13 +297,14 @@ QuantitySelector.propTypes = {
 };
 
 function ImageDisplay({ arr }) {
-  //const arr=["https://i.imgur.com/1u6NY7l.jpg","https://i.imgur.com/tJcPgxL.jpg","https://i.imgur.com/sWeXAOP.jpg","https://i.imgur.com/vqFUZbs.jpg","https://i.imgur.com/CnVpUnK.png"]    
+  //const arr=["https://i.imgur.com/1u6NY7l.jpg","https://i.imgur.com/tJcPgxL.jpg","https://i.imgur.com/sWeXAOP.jpg","https://i.imgur.com/vqFUZbs.jpg","https://i.imgur.com/CnVpUnK.png"]
   const imageRef = useRef(null);
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 });
-  const [imgIndex, setImgIndex] = useState(0)
+  const [imgIndex, setImgIndex] = useState(0);
 
   const handleMouseMove = (e) => {
-    const { left, top, width, height } = imageRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      imageRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
     setHoverPosition({ x, y });
@@ -279,7 +316,11 @@ function ImageDisplay({ arr }) {
 
   return (
     <div className="bg-white md:mr-3">
-      <div className="overflow-hidden relative group mx-5" onMouseMove={handleMouseMove} onMouseLeave={resetHoverPosition}>
+      <div
+        className="overflow-hidden relative group mx-5"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={resetHoverPosition}
+      >
         <img
           src={arr[imgIndex]}
           alt="Product"
@@ -291,18 +332,21 @@ function ImageDisplay({ arr }) {
         />
       </div>
       <div className="grid grid-cols-5 gap-x-2 md:gap-x-5 gap-y-2 p-5">
-        {arr.map((img, index) =>
+        {arr.map((img, index) => (
           <button key={index} onClick={() => setImgIndex(index)}>
-            <img src={img} className="w-full aspect-square object-cover p-1 border border-slate-500" />
+            <img
+              src={img}
+              className="w-full aspect-square object-cover p-1 border border-slate-500"
+            />
           </button>
-        )}
+        ))}
       </div>
     </div>
-  )
+  );
 }
 ImageDisplay.propTypes = {
   arr: propTypes.array,
-}
+};
 
 function Header({ name, reviewCount, rating }) {
   return (
@@ -312,13 +356,13 @@ function Header({ name, reviewCount, rating }) {
         <StarRating rating={rating} reviewCount={reviewCount} />
       </div>
     </div>
-  )
+  );
 }
 Header.propTypes = {
   name: propTypes.string,
   reviewCount: propTypes.number,
-  rating: propTypes.number
-}
+  rating: propTypes.number,
+};
 
 const StarRating = ({ rating, reviewCount }) => {
   const given_stars = [];
@@ -362,7 +406,10 @@ const StarRating = ({ rating, reviewCount }) => {
           </svg>
         ))}
       </div>
-      <a href="#reviews" className="ml-2 underline text-center block tracking-tight">
+      <a
+        href="#reviews"
+        className="ml-2 underline text-center block tracking-tight"
+      >
         {reviewCount} review{reviewCount > 1 ? "s" : ""}
       </a>
     </div>
@@ -370,5 +417,5 @@ const StarRating = ({ rating, reviewCount }) => {
 };
 StarRating.propTypes = {
   rating: propTypes.number,
-  reviewCount: propTypes.number
+  reviewCount: propTypes.number,
 };
