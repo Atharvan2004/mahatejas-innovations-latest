@@ -27,7 +27,11 @@ const multimotorSchema = await new mongoose.Schema({
       comment: String,
       rating: Number
     }
-  ]
+  ],
+  kvImg:[{
+    val:Number,
+    img:[String]
+  },]
 });
 const airplaneSchema = await new mongoose.Schema({
   name: {
@@ -54,7 +58,11 @@ const airplaneSchema = await new mongoose.Schema({
       comment: String,
       rating: Number
     }
-  ]
+  ],
+  kvImg:[{
+    val:Number,
+    img:[String]
+  },]
 });
 const fpvSchema = await new mongoose.Schema({
   name: {
@@ -81,7 +89,11 @@ const fpvSchema = await new mongoose.Schema({
       comment: String,
       rating: Number
     }
-  ]
+  ],
+  kvImg:[{
+    val:Number,
+    img:[String]
+  },]
 });
 const propellerSchema = await new mongoose.Schema({
   name: {
@@ -108,7 +120,11 @@ const propellerSchema = await new mongoose.Schema({
       comment: String,
       rating: Number
     }
-  ]
+  ],
+  kvImg:[{
+    val:Number,
+    img:[String]
+  },]
 });
 const escSchema = await new mongoose.Schema({
   name: {
@@ -135,7 +151,11 @@ const escSchema = await new mongoose.Schema({
       comment: String,
       rating: Number
     }
-  ]
+  ],
+  kvImg:[{
+    val:Number,
+    img:[String]
+  },]
 });
 
 const Multimotor = await mongoose.model('Multimotor', multimotorSchema);

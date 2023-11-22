@@ -45,6 +45,7 @@ export default function AddKv({ p_id, kv = [23, 234, 431, 12] }) {
         `/admin/product/setKv/${p_id}`,
         JSON.stringify({
           kvImgs: imgUrl,
+          selectedKv:selectedKv
         }),
         config,
       );

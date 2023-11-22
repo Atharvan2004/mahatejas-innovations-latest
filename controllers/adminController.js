@@ -206,6 +206,32 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
   }
 });
 
+const setKv= asyncErrorHandler(async (req, res, next) => {
+  if (req.isAdmin) {
+    const productId = req.params.id;
+    const existingProduct = await findProductById(productId);
+    const selectedKv = req.body.selectedKv;
+    const kvImgs = req.body.kvImgs;
+
+    const kv={
+      val:selectedKv,
+      img:kvImgs
+    }
+    existingProduct.kvImg.push(kv);
+    await existingProduct.save().catch((err) => {
+      res.status(400).json("Error in updating " + err);
+    });
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+    else{
+      res.status(400).json("Not an admin");
+    }
+
+});
+
 export {
   getAllOrders,
   getAllUsers,
@@ -215,4 +241,5 @@ export {
   deleteProduct,
   updateProduct,
   getAllProducts,
+  setKv
 };
