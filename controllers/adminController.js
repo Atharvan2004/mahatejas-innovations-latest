@@ -217,6 +217,14 @@ const setKv= asyncErrorHandler(async (req, res, next) => {
       val:selectedKv,
       img:kvImgs
     }
+
+    const existingKvObject = existingProduct.kvImg.find(obj => obj.val === selectedKv);
+
+    if (existingKvObject) {
+      // If the val exists, delete the existing object
+      existingProduct.kvImg = existingProduct.kvImg.filter(obj => obj.val !== selectedKv);
+    }
+
     existingProduct.kvImg.push(kv);
     await existingProduct.save().catch((err) => {
       res.status(400).json("Error in updating " + err);
