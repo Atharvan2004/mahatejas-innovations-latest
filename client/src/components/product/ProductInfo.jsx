@@ -25,6 +25,7 @@ export default function ProductInfo() {
     image_url,
     reviews,
     rating,
+    kvImg,
   } = useSelector((state) => state.productDetails.productInfo);
   const { productInfo } = useSelector((state) => state.productDetails);
 
@@ -48,24 +49,24 @@ export default function ProductInfo() {
           />
         </div>
       </div>
-      <InfoTabs kv={kv} />
+      {kvImg && <InfoTabs kvImg={kvImg} />}
       <ProductReviews p_rating={rating} reviewList={reviews} />
       <Footer />
     </div>
   );
 }
 
-function InfoTabs({ kvBAK }) {
-  const kv = [
-    {
-      val: 500,
-      img: [
-        "https://i.imgur.com/1u6NY7ls.jpg",
-        "https://i.imgur.com/tJcPgxLs.jpg",
-      ],
-    },
-    { val: 200, img: ["https://i.imgur.com/tJcPgxLs.jpg"] },
-  ];
+function InfoTabs({ kvImg }) {
+  // const kv = [
+  //   {
+  //     val: 500,
+  //     img: [
+  //       "https://i.imgur.com/1u6NY7ls.jpg",
+  //       "https://i.imgur.com/tJcPgxLs.jpg",
+  //     ],
+  //   },
+  //   { val: 200, img: ["https://i.imgur.com/tJcPgxLs.jpg"] },
+  // ];
   return (
     <div className="max-w-7xl mb-5 py-5 mx-auto bg-white px-5">
       <Tabs defaultValue="overview" className="text-black">
@@ -73,7 +74,7 @@ function InfoTabs({ kvBAK }) {
           <TabsTrigger value="overview" className="rounded-none text-xl">
             Overview
           </TabsTrigger>
-          {kv.map((item, index) => (
+          {kvImg.map((item, index) => (
             <TabsTrigger
               key={index}
               value={`KV${item.val}`}
@@ -81,13 +82,13 @@ function InfoTabs({ kvBAK }) {
             >{`KV${item.val}`}</TabsTrigger>
           ))}
         </TabsList>
-        <TabsContent value="overview">
-          <img
+        <TabsContent className="h-52 w-full" value="overview">
+          {/* <img
             src="https://cdn.shopify.com/s/files/1/2024/0305/files/V3506__01.jpg?v=1496803009"
             className="w-full"
-          />
+          /> */}
         </TabsContent>
-        {kv.map((item, index) => (
+        {kvImg.map((item, index) => (
           <TabsContent key={index} value={`KV${item.val}`}>
             {item.img.map((i, index) => (
               <img src={i} key={index} className="w-full mb-2" />
@@ -122,7 +123,7 @@ function Details({ _id, kv, min_quantity, price, description }) {
       setIsAdded(true);
     }
   }
-  console.log("kv", kv);
+  console.log("kv", min_quantity);
   console.log("0th", kv[0]);
 
   return (
@@ -155,7 +156,7 @@ function Details({ _id, kv, min_quantity, price, description }) {
         <p></p>
         <p>
           <span>( </span>
-          {kv[0] && kv.map((i, index) => <span key={index}>{i.val}, </span>)}
+          {kv[0] && kv.map((i, index) => <span key={index}>{i}, </span>)}
           <span> or enter custom ) *</span>
         </p>
       </div>
@@ -195,7 +196,7 @@ Details.propTypes = {
 const KVselector = ({ selectedKv, setSelectedKv }) => {
   // quantity functions
   function increaseQuantity() {
-    setSelectedKv((prev) => nprev + 50);
+    setSelectedKv((prev) => prev + 50);
   }
   function decreaseQuantity() {
     if (selectedKv < 50) return;
@@ -224,7 +225,7 @@ const KVselector = ({ selectedKv, setSelectedKv }) => {
         </button>
         <input
           type="number"
-          value={0}
+          value={selectedKv}
           className="w-12 bg-white text-center text-black"
           onChange={customQuantity}
           onBlur={checkQuantity}

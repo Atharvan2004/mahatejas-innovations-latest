@@ -174,10 +174,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
             />
           </div>
           <div className="mx-auto mb-5 grid w-full max-w-sm grid-cols-2 gap-x-4">
-            <Select
-              onValueChange={(val) => setSelectedCat(val)}
-              defaultValue={"Multimotor"}
-            >
+            <Select onValueChange={(val) => setSelectedCat(val)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
@@ -189,10 +186,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
                 ))}
               </SelectContent>
             </Select>
-            <Select
-              onValueChange={(val) => setSelectedType(val)}
-              defaultValue={"Medium Series"}
-            >
+            <Select onValueChange={(val) => setSelectedType(val)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>

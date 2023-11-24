@@ -21,13 +21,11 @@ import {
 } from "@/components/ui/select";
 import ImgUpload from "../../common/ImgUpload";
 
-export default function AddKv({ p_id, kv = [23, 234, 431, 12] }) {
+export default function AddKv({ p_id, kv = [0, 0, 0, 0] }) {
   const [selectedKv, setSelectedKv] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
 
   const handleSetKv = async (event) => {
-    event.preventDefault();
-
     // dont send if images not set
     if (!imgUrl) {
       alert("Please upload an image");
@@ -45,13 +43,14 @@ export default function AddKv({ p_id, kv = [23, 234, 431, 12] }) {
         `/admin/product/setKv/${p_id}`,
         JSON.stringify({
           kvImgs: imgUrl,
-          selectedKv:selectedKv
+          selectedKv: selectedKv,
         }),
         config,
       );
     }
     sendData();
   };
+  console.log("add kv", selectedKv);
   return (
     <Dialog>
       <DialogTrigger className="flex text-white rounded-md py-1 px-2 mr-2 mt-2 bg-black">
@@ -76,7 +75,10 @@ export default function AddKv({ p_id, kv = [23, 234, 431, 12] }) {
           <DialogTitle>Set Product KV Images</DialogTitle>
         </DialogHeader>
         <div className="flex justify-center">
-          <Select onValueChange={(val) => setSelectedKv(val)}>
+          <Select
+            defaultValue={kv[0]}
+            onValueChange={(val) => setSelectedKv(val)}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select KV" />
             </SelectTrigger>
@@ -89,25 +91,21 @@ export default function AddKv({ p_id, kv = [23, 234, 431, 12] }) {
             </SelectContent>
           </Select>
         </div>
-        {selectedKv && (
-          <>
-            <div className="flex justify-center mt-5">
-              <ImgUpload setImgUrl={setImgUrl} />
-            </div>
-            <DialogFooter className="mx-auto w-full max-w-sm">
-              <DialogClose asChild>
-                <button
-                  onClick={handleSetKv}
-                  type="submit"
-                  disabled={!imgUrl}
-                  className="float-right rounded-md bg-black px-5 py-2 text-white"
-                >
-                  {imgUrl ? "Confirm" : " Upload image(s) first"}
-                </button>
-              </DialogClose>
-            </DialogFooter>
-          </>
-        )}
+        <div className="flex justify-center mt-5">
+          <ImgUpload setImgUrl={setImgUrl} />
+        </div>
+        <DialogFooter className="mx-auto w-full max-w-sm">
+          <DialogClose asChild>
+            <button
+              onClick={handleSetKv}
+              type="submit"
+              disabled={!imgUrl}
+              className="float-right rounded-md bg-black px-5 py-2 text-white"
+            >
+              {imgUrl ? "Confirm" : " Upload image(s) first"}
+            </button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

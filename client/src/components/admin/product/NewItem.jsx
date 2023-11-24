@@ -65,7 +65,7 @@ export default function NewItem() {
           name: name,
           description: description,
           price: price,
-          kv: kv,
+          kv: kv.split(','),
           weight: weight,
           min_quantity: minQuantity,
           category: selectedType,

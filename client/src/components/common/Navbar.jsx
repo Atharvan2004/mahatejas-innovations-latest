@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import {
   Bars3Icon,
   ShoppingBagIcon,
@@ -82,12 +82,14 @@ export default function Navbar() {
   const location = useLocation();
 
   const [open, setOpen] = useState(false);
-  const [productTabOpen, setProductTabOpen] = useState(false)
+  const [productTabOpen, setProductTabOpen] = useState(false);
 
   const { isAuthenticated } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart.cartItems);
 
-  useEffect(() => { setOpen(false) }, [location])
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
 
   return (
     <div className="mb-10 bg-white">
@@ -139,17 +141,31 @@ export default function Navbar() {
                               selected
                                 ? "text-slate-800"
                                 : "border-transparent text-gray-900",
-                              "whitespace-nowrap border-b-2 pr-1 py-4 text-base font-medium",
+                              "whitespace-nowrap flex border-b-2 pr-1 py-4 text-base font-medium",
                             )
                           }
-                          onClick={() => setProductTabOpen(prev => !prev)}
+                          onClick={() => setProductTabOpen((prev) => !prev)}
                         >
-                          {category.name} &gt;
+                          {category.name}{" "}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6 scale-75"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                            />
+                          </svg>
                         </Tab>
                       ))}
                     </Tab.List>
                   </div>
-                  {productTabOpen &&
+                  {productTabOpen && (
                     <Tab.Panels as={Fragment}>
                       {navigation.categories.map((category) => (
                         <Tab.Panel
@@ -171,22 +187,29 @@ export default function Navbar() {
                               >
                                 {section.items.map((item) => (
                                   <li key={item.name} className="flow-root">
-                                    <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                    <a
+                                      href={item.href}
+                                      className="-m-2 block p-2 text-gray-500"
+                                    >
                                       {item.name}
                                     </a>
                                   </li>
                                 ))}
-                              </ul>                            </div>
+                              </ul>{" "}
+                            </div>
                           ))}
                         </Tab.Panel>
                       ))}
                     </Tab.Panels>
-                  }
+                  )}
                 </Tab.Group>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <Link to='/' className="-m-2 block p-2 font-medium text-gray-900" >
+                    <Link
+                      to="/"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
                       Home
                     </Link>
                   </div>
@@ -294,7 +317,7 @@ export default function Navbar() {
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   <Link
-                    to='/'
+                    to="/"
                     className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Home

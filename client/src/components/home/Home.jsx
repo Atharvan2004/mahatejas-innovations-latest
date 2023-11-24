@@ -2,14 +2,11 @@ import Navbar from "@/components/common/Navbar";
 import LandingBanner from "@/components/home/LandingBanner";
 import Footer from "@/components/common/Footer";
 import { useState, useEffect } from "react";
-import AddKv from "../admin/product/AddKv";
-import ImgUpload from "../common/ImgUpload";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <AddKv />
       <LandingBanner />
       <div className="w-screen">
         <Gallery />
@@ -21,11 +18,10 @@ export default function Home() {
 
 function Gallery() {
   const imgArr = [
-    "https://i.imgur.com/1u6NY7ls.jpg",
-    "https://i.imgur.com/tJcPgxLs.jpg",
-    "https://i.imgur.com/sWeXAOPs.jpg",
-    "https://i.imgur.com/vqFUZbss.jpg",
-    "https://i.imgur.com/CnVpUnKs.png",
+    "https://i.imgur.com/uqAvg2h.jpg",
+    "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1527441385177-3dad16222699?q=80&w=2060&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1577533870320-2c31e7e41028?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
   const imgCap = [
     "Caption 1",
