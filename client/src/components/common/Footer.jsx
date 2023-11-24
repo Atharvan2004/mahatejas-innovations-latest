@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-6xl lg:mx-auto lg:flex">
         {/* Quick links */}
         <div className="mb-8 flex flex-col md:w-1/3">
-          <h5 className=" text-white">Quich Links</h5>
+          <h5 className=" text-white">Quick Links</h5>
           <Link to="/me" className="text-white">
             My Account
           </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
           <p className="text-[#efefef]">
             ABV-IIITM Pocket B campus Morena Link Road
           </p>
-          <p className="text-[#efefef]">Gwalior, Madhyja Pradesh 474015</p>
+          <p className="text-[#efefef]">Gwalior, Madhya Pradesh 474015</p>
         </div>
       </div>
 
