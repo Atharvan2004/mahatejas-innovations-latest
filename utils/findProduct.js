@@ -30,4 +30,34 @@ async function findProductById(productId) {
   }
 }
 
-export {findProductById};
+async function findProductByQuery(query) {
+  try {
+    let product=[];
+
+    // Iterate through the models and attempt to find the product by productId in each model
+    for (const model of productModels) {
+      const regexQuery = {
+        $or: [
+          { "name": { $regex: new RegExp(query, 'i') } },
+          { "category": { $regex: new RegExp(query, 'i') } }
+        ]
+      };
+      
+      const productsInCollection = await model.find(regexQuery);
+      if(productsInCollection.length !==0){
+        await product.push(productsInCollection);
+      }
+    }
+
+    // Check if the product was found
+    if (product.length ==0) {
+      return "No products found"
+    }else
+    return product;
+  } catch (error) {
+    // Handle any errors, e.g., product not found or database connection issues.
+    throw error;
+  }
+}
+
+export {findProductById,findProductByQuery};

@@ -36,7 +36,7 @@ export const getProductInfo = (id) => async (dispatch) => {
   try {
     dispatch(PRODUCT_DETAILS_REQUEST());
 
-    let url = `http://localhost:3000/api/products/${id}`;
+    let url = `/api/products/${id}`;
 
     const { data } = await axios.get(url);
 
