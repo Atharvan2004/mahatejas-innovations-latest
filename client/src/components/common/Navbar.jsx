@@ -266,7 +266,7 @@ export default function Navbar() {
         <div className="flex h-7 items-center justify-center bg3-col px-5 lg:justify-between">
           <span className="hidden w-48 lg:inline"></span>
           <span className="text-sm text-col font-bold">
-            Shipping Available to All Country
+            Shipping Available to All Countries
           </span>
           <div className="hidden lg:block">
             {isAuthenticated ? (
@@ -281,7 +281,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link to="/signup" className="text-col">
-                  Create an acccount
+                <b>Create an account</b>
                 </Link>
                 <span className="mx-2 text-col">|</span>
                 <Link to="/signin" className="text-col">

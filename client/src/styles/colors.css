@@ -1,17 +1,17 @@
 .bg-col{
-  background: #000;
+  background: #202020;
 }
 .bg2-col{
-  background: #81aa24;
+  background: #fff86b;
 }
 .bg3-col{
-  background: #81aa24;
+  background: #fff86b;
 }
 .text-col{
-  color: #131921;
+  color: #161616;
 }
 .text2-col{
-  color: #81aa24;
+  color: #fff86b;
 }
 .text3-col{
   color: #fff;
@@ -21,8 +21,8 @@
   color: #fff;
 }
 .link-col:hover{
-  color: #81aa24;;
+  color: #fff86b;
 }
 .border-col{
-  border-color: #81aa24;
+  border-color: #fff86b;
 }

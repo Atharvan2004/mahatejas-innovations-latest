@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="bg-black px-5 pt-16">
+    <div className="bg-[#202020] px-5 pt-16">
       <div className="max-w-6xl lg:mx-auto lg:flex">
         {/* Quick links */}
         <div className="mb-8 flex flex-col md:w-1/3">
-          <h5 className="text2-col">Quick Links</h5>
+          <h5 className="text2-col">QUICK LINKS</h5>
           <Link to="/me" className="link-col">
             My Account
           </Link>
@@ -30,13 +30,13 @@ export default function Footer() {
             <p className="mb-4 link-col">+91 9109552446</p>
           </a>
           <a href="mailto:Contact@mahatejasinnovations.com">
-            <p className="link-col">Contact@mahatejasinnovations.com</p>
+            <p className="link-col">contact@mahatejasinnovations.com</p>
           </a>
           <a href="mailto:Sales@mahatejasinnovations.com">
-            <p className="link-col">Sales@mahatejasinnovations.com</p>
+            <p className="link-col">sales@mahatejasinnovations.com</p>
           </a>
           <a href="mailto:Support@mahatejasinnovations.com ">
-            <p className="link-col">Support@mahatejasinnovations.com </p>
+            <p className="link-col">support@mahatejasinnovations.com </p>
           </a>
         </div>
         {/* Address */}
