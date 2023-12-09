@@ -60,7 +60,7 @@ export default function LandingBanner() {
       <img
         src={imgArr[currImg]}
         alt="Landing"
-        className={"h-[180px] md:h-[500px] w-screen object-cover"} />
+        className={"h-[180px] md:h-[600px] w-screen object-cover"} />
     </div>
   );
 }

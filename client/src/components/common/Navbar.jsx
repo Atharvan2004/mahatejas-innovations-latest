@@ -11,6 +11,7 @@ import {
 
 import { logoutUser } from "@/actions/userActions";
 import logoImg from "@/assets/images/logo.png";
+import SearchProduct from "./SearchProduct";
 
 const navigation = {
   categories: [
@@ -95,7 +96,7 @@ export default function Navbar() {
     <div className="mb-10 bg-white">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+        <Dialog as="div" className="relative z-40 lg:hidden " onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity duration-300 ease-linear"
@@ -118,11 +119,11 @@ export default function Navbar() {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+              <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-col pb-12 shadow-xl">
                 <div className="flex px-4 justify-end pb-2 pt-5">
                   <button
                     type="button"
-                    className="relative  -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                    className="relative  -m-2 inline-flex items-center justify-center rounded-md p-2 text2-col"
                     onClick={() => setOpen(false)}
                   >
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -140,13 +141,13 @@ export default function Navbar() {
                             classNames(
                               selected
                                 ? "text-slate-800"
-                                : "border-transparent text-gray-900",
-                              "whitespace-nowrap flex border-b-2 pr-1 py-4 text-base font-medium",
+                                : "border-transparent",
+                              "whitespace-nowrap flex pr-1 py-4 link-col font-medium",
                             )
                           }
                           onClick={() => setProductTabOpen((prev) => !prev)}
                         >
-                          {category.name}{" "}
+                          {category.name}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -176,7 +177,7 @@ export default function Navbar() {
                             <div key={section.name}>
                               <p
                                 id={`${category.id}-${section.id}-heading-mobile`}
-                                className="font-medium text-gray-900"
+                                className="font-medium text2-col"
                               >
                                 {section.name}
                               </p>
@@ -189,7 +190,7 @@ export default function Navbar() {
                                   <li key={item.name} className="flow-root">
                                     <a
                                       href={item.href}
-                                      className="-m-2 block p-2 text-gray-500"
+                                      className="-m-2 block p-2 link-col"
                                     >
                                       {item.name}
                                     </a>
@@ -208,7 +209,7 @@ export default function Navbar() {
                   <div className="flow-root">
                     <Link
                       to="/"
-                      className="-m-2 block p-2 font-medium text-gray-900"
+                      className="-m-2 block p-2 font-medium link-col"
                     >
                       Home
                     </Link>
@@ -217,7 +218,7 @@ export default function Navbar() {
                     <div key={page.name} className="flow-root">
                       <Link
                         to={page.href}
-                        className="-m-2 block p-2 font-medium text-gray-900"
+                        className="-m-2 block p-2 font-medium link-col"
                       >
                         {page.name}
                       </Link>
@@ -239,7 +240,7 @@ export default function Navbar() {
                       <div className="flow-root">
                         <Link
                           to="/signin"
-                          className="-m-2 block p-2 font-medium text-gray-900"
+                          className="-m-2 block p-2 font-medium link-col"
                         >
                           Sign in
                         </Link>
@@ -247,7 +248,7 @@ export default function Navbar() {
                       <div className="flow-root">
                         <Link
                           to="/signup"
-                          className="-m-2 block p-2 font-medium text-gray-900"
+                          className="-m-2 block p-2 font-medium link-col"
                         >
                           Create account
                         </Link>
@@ -261,10 +262,10 @@ export default function Navbar() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-white">
-        <div className="flex h-10 items-center justify-center bg-slate-900 px-5 lg:justify-between">
+      <header className="bg-col relative bg-blue-500">
+        <div className="flex h-7 items-center justify-center bg3-col px-5 lg:justify-between">
           <span className="hidden w-48 lg:inline"></span>
-          <span className="text-sm text-white">
+          <span className="text-sm text-col font-bold">
             Shipping Available to All Country
           </span>
           <div className="hidden lg:block">
@@ -273,17 +274,17 @@ export default function Navbar() {
                 onClick={() => {
                   dispatch(logoutUser());
                 }}
-                className="mr-2 text-white"
+                className="mr-2 text-col"
               >
                 Logout
               </button>
             ) : (
               <>
-                <Link to="/signup" className="text-white">
+                <Link to="/signup" className="text-col">
                   Create an acccount
                 </Link>
-                <span className="mx-2 text-white">|</span>
-                <Link to="/signin" className="text-white">
+                <span className="mx-2 text-col">|</span>
+                <Link to="/signin" className="text-col">
                   Sign In
                 </Link>
               </>
@@ -293,13 +294,13 @@ export default function Navbar() {
 
         <nav
           aria-label="Top"
-          className="mx-auto max-w-[1600px] border-b border-slate-200 px-4 sm:px-6 lg:px-8"
+          className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8"
         >
           <div className="">
             <div className="flex h-16 items-center">
               <button
                 type="button"
-                className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
+                className="relative rounded-md p-2 text2-col bg-none lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -309,7 +310,7 @@ export default function Navbar() {
               <div className="ml-4 flex lg:ml-0">
                 <Link to="/">
                   <span className="sr-only">Your Company</span>
-                  <img className="h-8 w-auto" src={logoImg} alt="" />
+                  <img className="h-8 w-auto hidden" src={logoImg} alt="" />
                 </Link>
               </div>
 
@@ -318,7 +319,7 @@ export default function Navbar() {
                 <div className="flex h-full space-x-8">
                   <Link
                     to="/"
-                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                    className="flex items-center text-sm font-medium link-col"
                   >
                     Home
                   </Link>
@@ -331,7 +332,7 @@ export default function Navbar() {
                               className={classNames(
                                 open
                                   ? "text-slate-600"
-                                  : "border-transparent text-gray-700 hover:text-gray-800",
+                                  : "border-transparent link-col",
                                 "relative z-10 -mb-px flex items-center text-sm font-medium transition-colors duration-200 ease-out",
                               )}
                             >
@@ -346,7 +347,7 @@ export default function Navbar() {
                               aria-hidden="true"
                             />
 
-                            <div className="relative z-10 bg-white">
+                            <div className="relative z-10 bg-col">
                               <div className="mx-auto max-w-7xl px-8">
                                 <div className="py-8">
                                   <div className="row-start-1 grid grid-cols-5 gap-x-8 gap-y-10 text-sm">
@@ -354,7 +355,7 @@ export default function Navbar() {
                                       <div key={section.name}>
                                         <p
                                           id={`${section.name}-heading`}
-                                          className="font-medium text-gray-900"
+                                          className="font-medium text2-col"
                                         >
                                           {section.name}
                                         </p>
@@ -370,7 +371,7 @@ export default function Navbar() {
                                             >
                                               <Link
                                                 to={item.href}
-                                                className="hover:text-gray-800"
+                                                className="link-col"
                                               >
                                                 {item.name}
                                               </Link>
@@ -393,7 +394,7 @@ export default function Navbar() {
                     <Link
                       key={page.name}
                       to={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                      className="flex items-center text-sm font-medium link-col"
                     >
                       {page.name}
                     </Link>
@@ -401,16 +402,15 @@ export default function Navbar() {
                 </div>
               </Popover.Group>
 
-              {isAuthenticated && (
+              {!isAuthenticated && (
                 <>
                   <div className="ml-auto flex items-center">
                     {/* Profile */}
                     <div className="flex lg:ml-6">
                       <Link
                         to="/me"
-                        className="p-2 text-gray-400 hover:text-gray-500"
+                        className="p-2 link-col"
                       >
-                        <span className="sr-only">Search</span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -435,7 +435,7 @@ export default function Navbar() {
                         className="group -m-2 flex items-center p-2"
                       >
                         <ShoppingBagIcon
-                          className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          className="h-6 w-6 flex-shrink-0 link-col"
                           aria-hidden="true"
                         />
                         <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
@@ -447,6 +447,7 @@ export default function Navbar() {
                   </div>
                 </>
               )}
+    <SearchProduct />
             </div>
           </div>
         </nav>

@@ -1,0 +1,28 @@
+.bg-col{
+  background: #000;
+}
+.bg2-col{
+  background: #81aa24;
+}
+.bg3-col{
+  background: #81aa24;
+}
+.text-col{
+  color: #131921;
+}
+.text2-col{
+  color: #81aa24;
+}
+.text3-col{
+  color: #fff;
+}
+
+.link-col{
+  color: #fff;
+}
+.link-col:hover{
+  color: #81aa24;;
+}
+.border-col{
+  border-color: #81aa24;
+}

@@ -142,7 +142,7 @@ const Card = ({ author, order_date, review_msg, stars }) => {
   const MAX_MSG_LENGTH = 400;
 
   return (
-    <div className={classNames(stars >= 0 ? "h-96" : "h-40", "mr-4 w-full overflow-y-scroll flex-none px-9 pt-10 border rounded-lg border-slate-400")}>
+    <div className={classNames(stars >= 0 ? "h-96" : "h-40", "mr-4 w-full overflow-y-hidden flex-none px-9 pt-10 border rounded-lg border-slate-400")}>
       <div className="flex flex-col items-center mb-5 justify-between">
         {/* Rating */}
         {stars >= 0 &&

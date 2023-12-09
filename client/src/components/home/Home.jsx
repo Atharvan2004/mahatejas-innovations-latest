@@ -28,7 +28,7 @@ function Gallery() {
     "https://images.unsplash.com/photo-1577533870320-2c31e7e41028?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
   const imgCap = [
-    "Caption 1",
+    "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. 1",
     "Caption 2",
     "Caption 3",
     "Caption 4",
@@ -78,7 +78,7 @@ function Gallery() {
         </button>
       </div>
       <div className="mb-10">
-        <p className="bg-[#222222] md:py-3 py-1 md:text-xl font-bold text-center text-white">
+        <p className="bg-col text2-col md:py-3 py-1 md:text-xl text-sm text-center">
           {imgCap[currImg]}
         </p>
       </div>
