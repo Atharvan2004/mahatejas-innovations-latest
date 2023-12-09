@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="bg-black px-5 pt-16">
+    <div className="bg-[#161616] px-5 pt-16">
       <div className="max-w-6xl lg:mx-auto lg:flex">
         {/* Quick links */}
         <div className="mb-8 flex flex-col md:w-1/3">
