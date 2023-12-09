@@ -1,7 +1,7 @@
 import { Multimotor, Airplane, Fpv, Propeller, Esc } from "../models/Mutimotors.js"
 import { asyncErrorHandler } from "../middleware/asyncErrorHandler.js"
 import { User } from "../models/Users.js";
-import { findProductById } from "../utils/findProduct.js";
+import { findProductById,findProductByQuery } from "../utils/findProduct.js";
 const models = { Multimotor, Airplane, Fpv, Propeller, Esc, };
 
 const getProducts = asyncErrorHandler(async (req, res, next) => {
@@ -104,4 +104,16 @@ const createProductReview = asyncErrorHandler(async (req, res, next) => {
     });
 });
 
-export { getProducts, getAllProducts, getProductDetails, createProductReview };
+const searchProduct = asyncErrorHandler(async (req, res, next) =>  {
+    
+    try {
+        const product = await findProductByQuery(req.body.query);
+        res.status(200).json(product);
+    }
+    catch(err){
+        res.status(400).json("Error in finding products: "+err)
+    }
+});
+
+
+export { getProducts, getAllProducts, getProductDetails, createProductReview,searchProduct };

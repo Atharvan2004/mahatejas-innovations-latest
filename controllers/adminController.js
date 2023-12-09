@@ -13,12 +13,12 @@ import {
   Multimotor,
   Propeller,
 } from "../models/Mutimotors.js";
+import { Image } from "../models/Image.js";
 import { Order } from "../models/Orders.js";
 import { User } from "../models/Users.js";
 import { findProductById } from "../utils/findProduct.js";
 import { mailSend } from "../utils/sendEmail.js";
 
-const models = [Multimotor, Airplane, Fpv, Propeller, Esc];
 const models_obj = {
   Multimotor,
   Airplane,
@@ -26,7 +26,7 @@ const models_obj = {
   Propeller,
   Esc,
 };
-
+const models = [Multimotor, Airplane, Fpv, Propeller, Esc];
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const parentDirectory = path.resolve(__dirname, "..");
@@ -206,16 +206,16 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
   }
 });
 
-const setKv= asyncErrorHandler(async (req, res, next) => {
+const setKv = asyncErrorHandler(async (req, res, next) => {
   if (req.isAdmin) {
     const productId = req.params.id;
     const existingProduct = await findProductById(productId);
     const selectedKv = req.body.selectedKv;
     const kvImgs = req.body.kvImgs;
 
-    const kv={
-      val:selectedKv,
-      img:kvImgs
+    const kv = {
+      val: selectedKv,
+      img: kvImgs
     }
 
     const existingKvObject = existingProduct.kvImg.find(obj => obj.val === selectedKv);
@@ -234,11 +234,78 @@ const setKv= asyncErrorHandler(async (req, res, next) => {
       success: true,
     });
   }
-    else{
-      res.status(400).json("Not an admin");
-    }
+  else {
+    res.status(400).json("Not an admin");
+  }
 
 });
+
+const setImage = asyncErrorHandler(async (req, res, next) => {
+  if (req.isAdmin) {
+    try {
+      const image = {
+        index: req.body.index,
+        img: req.body.img
+      }
+      await Image.insertMany(image).then(() => {
+        res.status(200).json({
+          success: true,
+          image,
+        });
+      })
+    } catch (err) {
+      res.status(400).json("Error in adding image: " + err);
+    }
+  }
+  else {
+    res.status(400).json("Not an admin");
+  }
+
+})
+
+const getImage = asyncErrorHandler(async (req, res, next) => {
+  if (req.isAdmin) {
+    try {
+      const imageArray = await Image.find().sort({ index: 1 });
+      res.status(200).json({
+        success: true,
+        imageArray,
+      });
+    } catch (err) {
+      res.status(400).json("Error in finding images: " + err);
+    }
+  }
+  else {
+    res.status(400).json("Not an admin");
+  }
+
+})
+
+const deleteImage = asyncErrorHandler(async (req, res, next) => {
+  if (req.isAdmin) {
+    try {
+      const id= req.params.id;
+      const image = await Image.findById(id);
+      if (!image) {
+        return res.status(404).json({
+          success: false,
+          message: "Image not found",
+        });
+      }
+      await image.deleteOne();
+      res.status(200).json({
+        success: true,
+        message: "Image deleted successfully.",
+      });
+    } catch (err) {
+      res.status(400).json("Error in deleting image: " + err);
+    }
+  }
+  else {
+    res.status(400).json("Not an admin");
+  }
+
+})
 
 export {
   getAllOrders,
@@ -249,5 +316,6 @@ export {
   deleteProduct,
   updateProduct,
   getAllProducts,
-  setKv
+  setKv,
+  setImage, getImage,deleteImage
 };
