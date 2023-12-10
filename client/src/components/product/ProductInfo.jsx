@@ -9,6 +9,7 @@ import ProductReviews from "@/components/product/ProductReviews";
 import { getProductInfo } from "@/actions/productActions";
 import { addToCart } from "@/actions/cartActions";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import IMG404 from "@/assets/images/img404.jpg";
 
 export default function ProductInfo() {
   const dispatch = useDispatch();
@@ -323,7 +324,7 @@ function ImageDisplay({ arr }) {
         onMouseLeave={resetHoverPosition}
       >
         <img
-          src={arr[imgIndex]}
+          src={arr.length==0?IMG404:arr[imgIndex]}
           alt="Product"
           className="transition-transform duration-300 transform aspect-square w-full object-cover group-hover:scale-150"
           style={{

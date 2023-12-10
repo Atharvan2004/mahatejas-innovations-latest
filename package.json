@@ -8,7 +8,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "initiate": "cd .\\client && npm run build && cd .. && npm run dev"
+
   },
   "author": "",
   "license": "ISC",
