@@ -57,7 +57,7 @@ export default function NewItem() {
           "Content-Type": "application/json",
         },
       };
-      await axios.post(
+      const res = await axios.post(
         "/admin/product/create",
         JSON.stringify({
           // backend using opposite naming for type and category
@@ -73,6 +73,12 @@ export default function NewItem() {
         }),
         config,
       );
+      if (res.data.success) {
+        alert("Product added successfully");
+        window.location.reload();
+      }else{
+        alert("Something went wrong");
+      }
     }
     sendData();
   };

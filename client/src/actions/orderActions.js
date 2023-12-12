@@ -21,6 +21,12 @@ export const newOrder = (phone, address) => async (dispatch) => {
       config,
     );
 
+    if (data.success) {
+      alert("Order Placed Successfully");
+    }else{
+      alert("Something went wrong");
+    }
+
     dispatch(NEW_ORDER_SUCCESS(data));
   } catch (error) {
     dispatch(NEW_ORDER_FAIL(error.message));

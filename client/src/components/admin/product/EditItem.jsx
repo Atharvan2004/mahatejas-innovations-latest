@@ -43,8 +43,11 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
   const [weight, setWeight] = useState(we);
   const [minQuantity, setMinQuantity] = useState(mq);
 
+  const [disableConfirm, setDisableConfirm] = useState(false);
+
   const handleEditProduct = (event) => {
     event.preventDefault();
+    setDisableConfirm(true);
 
     // dont send if images not set
     if (!imgUrl) {
@@ -58,7 +61,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           "Content-Type": "application/json",
         },
       };
-      await axios.post(
+      const res=await axios.post(
         `/admin/product/update/${pi}`,
         JSON.stringify({
           // backend using opposite naming for type and category
@@ -74,8 +77,15 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
         }),
         config,
       );
+      if (res.data.success) {
+        alert("Product updated");
+        window.location.reload();
+      }else{
+        alert("Something went wrong");
+      }
     }
     sendData();
+    setDisableConfirm(false);
   };
   return (
     <Dialog>
@@ -206,6 +216,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           <DialogFooter className="mx-auto w-full max-w-sm">
             <DialogClose asChild>
               <button
+                disabled={disableConfirm || !imgUrl}
                 type="submit"
                 className="float-right w-24 rounded-md bg-black px-5 py-2 text-white"
               >
