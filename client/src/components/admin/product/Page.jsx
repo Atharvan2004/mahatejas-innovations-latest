@@ -31,12 +31,16 @@ export default function ManageProduct() {
         <Link to="/admin/manage-products" className="bg-slate-200 px-5 py-3">
           Manage Products
         </Link>
+        <Link to="/admin/manage-home" className="px-5 py-3">
+          Manage Home
+        </Link>
       </div>
       <div className="container mx-auto py-10">
         <div className="mb-10 flex justify-between">
           <div>
             <h1>Welcome Back!</h1>
-            <p>Here is the list of all the orders...</p>
+            <p>You can add, edit and delete product from here.</p>
+            <p className="text-gray-500 text-sm">Hint: to delete hold the delete button.</p>
           </div>
           <button
             onClick={() => {

@@ -50,7 +50,6 @@ export default function AddKv({ p_id, kv = [0, 0, 0, 0] }) {
     }
     sendData();
   };
-  console.log("add kv", selectedKv);
   return (
     <Dialog>
       <DialogTrigger className="flex text-white rounded-md py-1 px-2 mr-2 mt-2 bg-black">
@@ -73,6 +72,9 @@ export default function AddKv({ p_id, kv = [0, 0, 0, 0] }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Set Product KV Images</DialogTitle>
+          <p className="text-sm text-red-500">
+            Warn: wait till it says upload complete.
+          </p>
         </DialogHeader>
         <div className="flex justify-center">
           <Select

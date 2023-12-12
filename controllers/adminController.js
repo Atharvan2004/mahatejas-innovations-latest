@@ -258,11 +258,9 @@ const setCarousel = asyncErrorHandler(async (req, res, next) => {
   else {
     res.status(400).json("Not an admin");
   }
-
 })
 
 const getCarousel = asyncErrorHandler(async (req, res, next) => {
-  if (req.isAdmin) {
     try {
       const imageArray = await Image.find().sort({ index: 1 });
       res.status(200).json({
@@ -272,11 +270,6 @@ const getCarousel = asyncErrorHandler(async (req, res, next) => {
     } catch (err) {
       res.status(400).json("Error in loading images: " + err);
     }
-  }
-  else {
-    res.status(400).json("Not an admin");
-  }
-
 })
 
 // const deleteImage = asyncErrorHandler(async (req, res, next) => {
