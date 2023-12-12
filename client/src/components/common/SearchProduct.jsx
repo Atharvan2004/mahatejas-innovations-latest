@@ -36,7 +36,6 @@ export default function SearchProduct() {
         setQuery("");
       } else {
         setSearchResult(data);
-        console.log("searchResult", searchResult);
         setShowSearch(false);
         setShowSearchResult(true);
       }

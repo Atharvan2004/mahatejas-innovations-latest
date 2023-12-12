@@ -42,7 +42,6 @@ export const getProductInfo = (id) => async (dispatch) => {
 
     dispatch(PRODUCT_DETAILS_SUCCESS(data));
   } catch (error) {
-    console.log("error", error);
     dispatch(PRODUCT_DETAILS_FAIL(error.respsonse.data));
     return [];
   }

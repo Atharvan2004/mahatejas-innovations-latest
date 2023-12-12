@@ -96,6 +96,9 @@ export default function NewItem() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add a new Product</DialogTitle>
+          <p className="text-sm text-red-500">
+            Warn: wait till it says upload complete.
+          </p>
         </DialogHeader>
         <div className="flex justify-center">
           <ImgUpload setImgUrl={setImgUrl} />

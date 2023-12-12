@@ -39,7 +39,6 @@ const ImgUpload = ({ setImgUrl }) => {
       setUrl(res.public_id);
       return res.url;
     } catch (error) {
-      console.log(error);
       return null;
     }
   };

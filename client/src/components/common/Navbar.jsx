@@ -402,52 +402,51 @@ export default function Navbar() {
                 </div>
               </Popover.Group>
 
-              {!isAuthenticated && (
-                <>
-                  <div className="ml-auto flex items-center">
-                    {/* Profile */}
-                    <div className="flex lg:ml-6">
-                      <Link
-                        to="/me"
-                        className="p-2 link-col"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="h-6 w-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                          />
-                        </svg>
-                      </Link>
-                    </div>
+                <div className="ml-auto flex items-center">
+                  {isAuthenticated && (
+                    <>
+                      {/* Profile */}
+                      <div className="flex lg:ml-6">
+                        <Link to="/me" className="p-2 link-col">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-6 w-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                            />
+                          </svg>
+                        </Link>
+                      </div>
 
-                    {/* Cart */}
-                    <div className="ml-4 flow-root lg:ml-6">
-                      <Link
-                        to="/cart"
-                        className="group -m-2 flex items-center p-2"
-                      >
-                        <ShoppingBagIcon
-                          className="h-6 w-6 flex-shrink-0 link-col"
-                          aria-hidden="true"
-                        />
-                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                          {cart && cart.length}
-                        </span>
-                        <span className="sr-only">items in cart, view bag</span>
-                      </Link>
-                    </div>
-                  </div>
-                </>
-              )}
-    <SearchProduct />
+                      {/* Cart */}
+                      <div className="ml-4 flow-root lg:ml-6">
+                        <Link
+                          to="/cart"
+                          className="group -m-2 flex items-center p-2"
+                        >
+                          <ShoppingBagIcon
+                            className="h-6 w-6 flex-shrink-0 link-col"
+                            aria-hidden="true"
+                          />
+                          <span className="ml-2 text-sm font-medium link-col">
+                            {cart && cart.length}
+                          </span>
+                          <span className="sr-only">
+                            items in cart, view bag
+                          </span>
+                        </Link>
+                      </div>
+                    </>
+                  )}
+                  <SearchProduct />
+                </div>
             </div>
           </div>
         </nav>

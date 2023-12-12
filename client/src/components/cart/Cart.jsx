@@ -110,7 +110,7 @@ const CartItem = ({ data }) => {
         <img
           src={data && data.image[0] ? data.image[0] : IMG404}
           alt="product"
-          className="mx-auto aspect-square h-28 object-cover"
+          className="mx-auto mr-2 aspect-square h-28 object-cover"
         />
         <div className="w-2/3 md:w-full">
           <p className="text font-semibold">{data && data.name}</p>

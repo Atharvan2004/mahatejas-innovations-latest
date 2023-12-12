@@ -70,11 +70,8 @@ function InfoTabs({ kvImg }) {
   // ];
   return (
     <div className="max-w-7xl mb-5 py-5 mx-auto bg-white px-5">
-      <Tabs defaultValue="overview" className="text-black">
+      <Tabs defaultValue={`KV${kvImg[0]&&kvImg[0].val}`} className="text-black">
         <TabsList className="rounded-none w-full justify-start">
-          <TabsTrigger value="overview" className="rounded-none text-xl">
-            Overview
-          </TabsTrigger>
           {kvImg.map((item, index) => (
             <TabsTrigger
               key={index}
@@ -124,8 +121,6 @@ function Details({ _id, kv, min_quantity, price, description }) {
       setIsAdded(true);
     }
   }
-  console.log("kv", min_quantity);
-  console.log("0th", kv[0]);
 
   return (
     <div className="px-0 bg-white md:ml-3 md:px-5">
@@ -148,7 +143,7 @@ function Details({ _id, kv, min_quantity, price, description }) {
         )}
         {/* KV  */}
         <div>
-          {kv[0] && (
+          {kv&&kv[0] && (
             <KVselector selectedKv={selectedKv} setSelectedKv={setSelectedKv} />
           )}
         </div>
@@ -157,7 +152,7 @@ function Details({ _id, kv, min_quantity, price, description }) {
         <p></p>
         <p>
           <span>( </span>
-          {kv[0] && kv.map((i, index) => <span key={index}>{i}, </span>)}
+          {kv&&kv[0] && kv.map((i, index) => <span key={index}>{i}, </span>)}
           <span> or enter custom ) *</span>
         </p>
       </div>

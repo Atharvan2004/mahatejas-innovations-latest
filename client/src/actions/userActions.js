@@ -106,7 +106,6 @@ export const loadUser = () => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/user/logout");
-    console.log("response", data);
 
     dispatch(LOGOUT_USER_SUCCESS());
   } catch (error) {

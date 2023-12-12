@@ -13,6 +13,7 @@ import Contact from "@/components/siteInfo/Contact";
 import Home from "@/components/home/Home";
 import ManageOrders from "@/components/admin/order/Page";
 import ManageProducts from "@/components/admin/product/Page";
+import ManageHome from "@/components/admin/home/Page";
 import MyOrders from "@/components/user/MyOrders";
 import NotFound from "@/components/common/NotFound";
 import OemOdm from "@/components/siteInfo/OemOdm";
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
   { path: "about/", element: <About /> },
   { path: "admin/manage-orders", element: <ProtectedRoute isAdmin={true}><ManageOrders /></ProtectedRoute> },
   { path: "admin/manage-products", element: <ProtectedRoute isAdmin={true}><ManageProducts /></ProtectedRoute> },
+  { path: "admin/manage-home", element: <ProtectedRoute isAdmin={true}><ManageHome /></ProtectedRoute> },
   // { path: "cart/", element: <Cart /> },
   { path: "cart/", element: <ProtectedRoute> <Cart /> </ProtectedRoute> },
   { path: "category/:catname/:type", element: <CategoryPage /> },

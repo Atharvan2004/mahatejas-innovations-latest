@@ -8,8 +8,14 @@ export default function Home() {
     <>
       <Navbar />
       <LandingBanner />
-      <div className="w-screen">
-        <Gallery />
+      <div className="container w-screen">
+        <h2 className="scroll-m-20 text-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          Our Manufacturing Process
+        </h2>
+        <iframe
+          className="aspect-video w-full mb-10"
+          src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1"
+        ></iframe>
       </div>
       <Footer />
     </>
@@ -55,7 +61,9 @@ function Gallery() {
 
   return (
     <>
-      <h1 className="text-center text-sm mb-2 md:text-3xl">Our Manufacturing Process</h1>
+      <h1 className="text-center text-sm mb-2 md:text-3xl">
+        Our Manufacturing Process
+      </h1>
       <div className="relative">
         <div className="mySlides">
           <img
