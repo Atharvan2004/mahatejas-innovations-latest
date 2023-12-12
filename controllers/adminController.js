@@ -240,21 +240,19 @@ const setKv = asyncErrorHandler(async (req, res, next) => {
 
 });
 
-const setImage = asyncErrorHandler(async (req, res, next) => {
+const setCarousel = asyncErrorHandler(async (req, res, next) => {
   if (req.isAdmin) {
     try {
-      const image = {
-        index: req.body.index,
-        img: req.body.img
-      }
-      await Image.insertMany(image).then(() => {
-        res.status(200).json({
-          success: true,
-          image,
-        });
-      })
+      const imageArray = req.body.imageArray;
+      await Image.deleteMany();
+      await Image.insertMany(imageArray)
+      const images = await Image.find().sort({ index: 1 });
+      res.status(200).json({
+        success: true,
+        images,
+      });
     } catch (err) {
-      res.status(400).json("Error in adding image: " + err);
+      res.status(400).json("Error in updating images: " + err);
     }
   }
   else {
@@ -263,7 +261,7 @@ const setImage = asyncErrorHandler(async (req, res, next) => {
 
 })
 
-const getImage = asyncErrorHandler(async (req, res, next) => {
+const getCarousel = asyncErrorHandler(async (req, res, next) => {
   if (req.isAdmin) {
     try {
       const imageArray = await Image.find().sort({ index: 1 });
@@ -272,7 +270,7 @@ const getImage = asyncErrorHandler(async (req, res, next) => {
         imageArray,
       });
     } catch (err) {
-      res.status(400).json("Error in finding images: " + err);
+      res.status(400).json("Error in loading images: " + err);
     }
   }
   else {
@@ -281,31 +279,31 @@ const getImage = asyncErrorHandler(async (req, res, next) => {
 
 })
 
-const deleteImage = asyncErrorHandler(async (req, res, next) => {
-  if (req.isAdmin) {
-    try {
-      const id= req.params.id;
-      const image = await Image.findById(id);
-      if (!image) {
-        return res.status(404).json({
-          success: false,
-          message: "Image not found",
-        });
-      }
-      await image.deleteOne();
-      res.status(200).json({
-        success: true,
-        message: "Image deleted successfully.",
-      });
-    } catch (err) {
-      res.status(400).json("Error in deleting image: " + err);
-    }
-  }
-  else {
-    res.status(400).json("Not an admin");
-  }
+// const deleteImage = asyncErrorHandler(async (req, res, next) => {
+//   if (req.isAdmin) {
+//     try {
+//       const id= req.params.id;
+//       const image = await Image.findById(id);
+//       if (!image) {
+//         return res.status(404).json({
+//           success: false,
+//           message: "Image not found",
+//         });
+//       }
+//       await image.deleteOne();
+//       res.status(200).json({
+//         success: true,
+//         message: "Image deleted successfully.",
+//       });
+//     } catch (err) {
+//       res.status(400).json("Error in deleting image: " + err);
+//     }
+//   }
+//   else {
+//     res.status(400).json("Not an admin");
+//   }
 
-})
+// })
 
 export {
   getAllOrders,
@@ -317,5 +315,7 @@ export {
   updateProduct,
   getAllProducts,
   setKv,
-  setImage, getImage,deleteImage
+  setCarousel,
+  getCarousel,
+  // deleteImage
 };

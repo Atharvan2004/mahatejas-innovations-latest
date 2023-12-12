@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const ImgUpload = ({ setImgUrl }) => {
   // image is an array
-  const [image, setImage] = useState(null);
+  const [image, setCarousel] = useState(null);
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
@@ -54,7 +54,7 @@ const ImgUpload = ({ setImgUrl }) => {
       }
     }
 
-    setImage(files);
+    setCarousel(files);
 
     // Display image previews
     const previews = files.map((file) => URL.createObjectURL(file));
@@ -63,7 +63,7 @@ const ImgUpload = ({ setImgUrl }) => {
 
   const handleResetClick = () => {
     setPreview(null);
-    setImage(null);
+    setCarousel(null);
   };
 
   return (
