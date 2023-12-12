@@ -164,38 +164,35 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
   if (req.isAdmin) {
     const productId = req.params.id;
     const existingProduct = await findProductById(productId);
-
-    if (req.body.type) {
-      existingProduct.type = req.body.type;
-    }
+    let updatedProduct={};
     if (req.body.name) {
-      existingProduct.name = req.body.name;
+      updatedProduct.name = req.body.name;
     }
     if (req.body.description) {
-      existingProduct.description = req.body.description;
+      updatedProduct.description = req.body.description;
     }
     if (req.body.price) {
-      existingProduct.price = req.body.price;
+      updatedProduct.price = req.body.price;
     }
     if (req.body.kv) {
-      existingProduct.kv = req.body.kv;
+      updatedProduct.kv = req.body.kv;
     }
     if (req.body.weight) {
-      existingProduct.weight = req.body.weight;
+      updatedProduct.weight = req.body.weight;
     }
     if (req.body.min_quantity) {
-      existingProduct.min_quantity = req.body.min_quantity;
+      updatedProduct.min_quantity = req.body.min_quantity;
     }
     if (req.body.category) {
-      existingProduct.category = req.body.category+" Series";
+      updatedProduct.category = req.body.category+" Series";
     }
     if (req.body.image_url != 0) {
-      existingProduct.image_url = req.body.image_url;
+      updatedProduct.image_url = req.body.image_url;
     }
     
     if (req.body.type) {
       // Create a new document using the specified model
-      const newProduct = new models_obj[req.body.type](existingProduct);
+      const newProduct =  models_obj[req.body.type](updatedProduct);
 
       // Save the new document
       await newProduct.save();
@@ -209,7 +206,7 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
       });
     } else {
       // Save the updated existing product
-      await existingProduct.save();
+      await existingProduct.updateOne(updatedProduct);
 
       res.status(200).json({
         success: true,
