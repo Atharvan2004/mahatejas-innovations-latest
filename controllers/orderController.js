@@ -44,14 +44,15 @@ const newOrder = asyncErrorHandler(async (req, res, next) => {
 
     await order.save()
         .then(() => {
-             user1.cart =[];
+             
             mailSend(order);
         })
         .catch((err) => {
             console.log("Error " + err);
         });
 
-
+        user1.cart =[];
+       await user1.save();
 
     res.status(201).json({
         success: true,
