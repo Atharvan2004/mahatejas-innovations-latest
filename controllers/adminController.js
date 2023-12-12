@@ -192,17 +192,30 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
     if (req.body.image_url != 0) {
       existingProduct.image_url = req.body.image_url;
     }
+    
+    if (req.body.type) {
+      // Create a new document using the specified model
+      const newProduct = new models_obj[req.body.type](existingProduct);
 
-    const productType = req.body.type;
-    const model = models_obj[productType];
-    await model.insertMany(existingProduct).then((err) => {
+      // Save the new document
+      await newProduct.save();
+
+      // Remove the existing product
+      await existingProduct.deleteOne();
+
+      res.status(200).json({
+        success: true,
+        newProduct,
+      });
+    } else {
+      // Save the updated existing product
+      await existingProduct.save();
+
       res.status(200).json({
         success: true,
         existingProduct,
       });
-    });
-
-    await existingProduct.deleteOne();
+    }
   } else {
     res.status(400).json("Not an admin");
   }
