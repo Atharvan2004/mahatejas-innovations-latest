@@ -4,6 +4,8 @@ import { logoutUser } from "@/actions/userActions";
 import { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import axios from "axios";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 import NewItem from "@/components/admin/product/NewItem";
 import EditItem from "@/components/admin/product/EditItem";
@@ -22,25 +24,55 @@ export default function ManageProduct() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("products", products);
+  }, [products]);
+
   return (
     <>
-      <div className="flex w-screen bg-slate-100">
-        <Link to="/admin/manage-orders" className="px-5 py-3">
-          Manage Orders
-        </Link>
-        <Link to="/admin/manage-products" className="bg-slate-200 px-5 py-3">
-          Manage Products
-        </Link>
-        <Link to="/admin/manage-home" className="px-5 py-3">
-          Manage Home
-        </Link>
+      <div className="flex justify-between items-center w-screen bg-slate-100">
+        <div className="flex">
+          <Link to="/admin/manage-orders" className="px-5 py-3 bg-slate-200">
+            Manage Orders
+          </Link>
+          <Link to="/admin/manage-products" className="px-5 py-3">
+            Manage Products
+          </Link>
+          <Link to="/admin/manage-home" className="px-5 py-3">
+            Manage Home
+          </Link>
+        </div>
+      <Link
+        to="/"
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "mr-5"
+        )}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+          />
+        </svg>
+      </Link>
       </div>
       <div className="container mx-auto py-10">
         <div className="mb-10 flex justify-between">
           <div>
             <h1>Welcome Back!</h1>
             <p>You can add, edit and delete product from here.</p>
-            <p className="text-gray-500 text-sm">Hint: to delete hold the delete button.</p>
+            <p className="text-gray-500 text-sm">
+              Hint: to delete hold the delete button.
+            </p>
           </div>
           <button
             onClick={() => {
@@ -69,13 +101,7 @@ export default function ManageProduct() {
                   weight={i.weight}
                   category={i.category}
                   min_quantity={i.min_quantity}
-                  isDeleted={(value) => {
-                    if (value) {
-                      setProducts(
-                        products.filter((item) => item._id !== i._id),
-                      );
-                    }
-                  }}
+                  setProducts={setProducts}
                 />
               )),
             )}
@@ -95,7 +121,7 @@ const ListItem = ({
   weight,
   category,
   min_quantity,
-  isDeleted,
+  setProducts,
 }) => {
   const [holding, setHolding] = useState(false);
 
@@ -107,7 +133,11 @@ const ListItem = ({
       setHolding(false); // Reset holding state after action execution
       axios.post(`/admin/product/delete/${linkID}`).then((res) => {
         alert(res.data.message);
-        isDeleted(true);
+        if (res.data.success) {
+          setProducts((products) =>
+            products.map((arr) => arr.filter((j) => j._id !== linkID)),
+          );
+        }
       });
     }, 2000);
   };

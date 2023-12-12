@@ -16,7 +16,7 @@ export const newOrder = (phone, address) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/order/create",
+      `${import.meta.env.VITE_API_ENDPOINT}/order/create`,
       { phone: phone, deliveryAddress: address },
       config,
     );

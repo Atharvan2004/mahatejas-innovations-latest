@@ -34,8 +34,8 @@ const typeOptions = {
 
 export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
   const [imgUrl, setImgUrl] = useState(null);
-  const [selectedCat, setSelectedCat] = useState("Multimotor");
-  const [selectedType, setSelectedType] = useState("Lite Series");
+  const [selectedCat, setSelectedCat] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
   const [name, setName] = useState(na);
   const [description, setDescription] = useState(de);
   const [kv, setKv] = useState(k);
@@ -49,19 +49,13 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
     event.preventDefault();
     setDisableConfirm(true);
 
-    // dont send if images not set
-    if (!imgUrl) {
-      alert("Please upload an image");
-      return;
-    }
-
     async function sendData() {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const res=await axios.post(
+      const res = await axios.post(
         `/admin/product/update/${pi}`,
         JSON.stringify({
           // backend using opposite naming for type and category
@@ -80,7 +74,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
       if (res.data.success) {
         alert("Product updated");
         window.location.reload();
-      }else{
+      } else {
         alert("Something went wrong");
       }
     }
@@ -108,7 +102,8 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
             Warn: wait till it says upload complete.
           </p>
         </DialogHeader>
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center">
+          <Label className="text-black mb-2">Update Images</Label>
           <ImgUpload setImgUrl={setImgUrl} />
         </div>
         <form onSubmit={handleEditProduct}>
@@ -216,7 +211,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           <DialogFooter className="mx-auto w-full max-w-sm">
             <DialogClose asChild>
               <button
-                disabled={disableConfirm || !imgUrl}
+                disabled={disableConfirm}
                 type="submit"
                 className="float-right w-24 rounded-md bg-black px-5 py-2 text-white"
               >

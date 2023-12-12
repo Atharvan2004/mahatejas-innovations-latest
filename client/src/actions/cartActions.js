@@ -4,9 +4,7 @@ import { cartSlice } from "@/features/cartSlice";
 const {
   ADD_TO_CART,
   FETCH_CART,
-  EMPTY_CART,
   REMOVE_FROM_CART,
-  SAVE_SHIPPING_INFO,
 } = cartSlice.actions;
 
 // add to cart
@@ -20,7 +18,7 @@ export const addToCart =
     };
 
     const { data } = await axios.post(
-      "/user/cart/add",
+      `${import.meta.env.VITE_API_ENDPOINT}/user/cart/add`,
       JSON.stringify({ id: id, quantity: quantity, kv: kv }),
       config,
     );
@@ -30,7 +28,9 @@ export const addToCart =
 
 // add to cart
 export const fetchCart = () => async (dispatch) => {
-  const { data } = await axios.get("/user/cart/");
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_API_ENDPOINT}/user/cart/`
+  );
 
   dispatch(FETCH_CART(data));
 };
@@ -44,7 +44,7 @@ export const deleteItemsFromCart = (id) => async (dispatch) => {
   };
 
   const { data } = await axios.post(
-    "/user/cart/delete",
+    `${import.meta.env.VITE_API_ENDPOINT}/user/cart/delete`,
     JSON.stringify({ id: id }),
     config,
   );

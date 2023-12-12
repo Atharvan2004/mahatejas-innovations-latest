@@ -19,7 +19,9 @@ export default function SignIn({ className, ...props }) {
   const navigate = useNavigate();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { loading, isAuthenticated, error } = useSelector((state) => state.user,);
+  const { loading, isAuthenticated, error } = useSelector(
+    (state) => state.user,
+  );
 
   const [user, setUser] = useState({
     email: "",
@@ -31,10 +33,11 @@ export default function SignIn({ className, ...props }) {
     await dispatch(loginUser(user.email, user.password));
   }
 
-  useEffect(()=>{
-    if (isAuthenticated && user.email === import.meta.env.VITE_ADMIN_EMAIL) navigate("/admin/manage-orders")
+  useEffect(() => {
+    if (isAuthenticated && user.email === import.meta.env.VITE_ADMIN_EMAIL)
+      navigate("/admin/manage-orders");
     else if (isAuthenticated) navigate("/");
-  },[isAuthenticated,navigate,user])
+  }, [isAuthenticated, navigate, user]);
 
   return (
     <div className="lg:p-8">
@@ -42,10 +45,32 @@ export default function SignIn({ className, ...props }) {
         to="/signup"
         className={cn(
           buttonVariants({ variant: "outline" }),
-          "absolute right-4 top-4 md:right-8 md:top-8",
+          "absolute right-24 top-4 md:right-24 md:top-8",
         )}
       >
         Sign up
+      </Link>
+      <Link
+        to="/"
+        className={cn(
+          buttonVariants({ variant: "outline" }),
+          "absolute right-4 top-4 md:right-8 md:top-8",
+        )}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+          />
+        </svg>
       </Link>
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[450px]">
         <div className="flex flex-col space-y-2 text-center">
@@ -144,9 +169,7 @@ export default function SignIn({ className, ...props }) {
                 Sign In with Email
               </Button>
               {error && (
-                <span className="text-pink-600">
-                  Sign In Failed. {error}
-                </span>
+                <span className="text-pink-600">Sign In Failed. {error}</span>
               )}
             </div>
           </form>

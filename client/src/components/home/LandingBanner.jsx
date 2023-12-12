@@ -8,7 +8,9 @@ export default function LandingBanner() {
 
   useEffect(() => {
     async function getImages() {
-      const res = await axios.get("/admin/getCarousel");
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_ENDPOINT}/admin/getCarousel`,
+      );
       setImgArr(res.data.imageArray);
     }
     getImages();

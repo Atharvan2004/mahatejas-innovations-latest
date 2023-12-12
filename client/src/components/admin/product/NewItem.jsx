@@ -34,12 +34,12 @@ export default function NewItem() {
   const [imgUrl, setImgUrl] = useState(null);
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [weight, setWeight] = useState("");
-  const [minQuantity, setMinQuantity] = useState("");
-  const [kv, setKv] = useState("");
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [minQuantity, setMinQuantity] = useState(null);
+  const [kv, setKv] = useState(null);
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
@@ -65,7 +65,7 @@ export default function NewItem() {
           name: name,
           description: description,
           price: price,
-          kv: kv.split(','),
+          kv: kv.split(","),
           weight: weight,
           min_quantity: minQuantity,
           category: selectedType,
@@ -76,7 +76,7 @@ export default function NewItem() {
       if (res.data.success) {
         alert("Product added successfully");
         window.location.reload();
-      }else{
+      } else {
         alert("Something went wrong");
       }
     }
@@ -209,10 +209,31 @@ export default function NewItem() {
             <DialogClose asChild>
               <button
                 type="submit"
-                disabled={!imgUrl}
+                disabled={
+                  !imgUrl ||
+                  !selectedCat ||
+                  !selectedType ||
+                  !name ||
+                  !description ||
+                  !price ||
+                  !weight ||
+                  !minQuantity ||
+                  !kv
+                }
                 className="float-right rounded-md bg-black px-5 py-2 text-white"
               >
-                {imgUrl ? "Add" : " Upload image(s) first"}
+                {!imgUrl
+                  ? "Upload Image(s) first"
+                  : !selectedCat ||
+                      !selectedType ||
+                      !name ||
+                      !description ||
+                      !price ||
+                      !weight ||
+                      !minQuantity ||
+                      !kv
+                    ? "Fill all fields"
+                    : "Add Product"}
               </button>
             </DialogClose>
           </DialogFooter>

@@ -123,7 +123,7 @@ function Details({ _id, kv, min_quantity, price, description }) {
   }
 
   return (
-    <div className="px-0 bg-white md:ml-3 md:px-5">
+    <div className="px-2 pb-2 bg-white md:ml-3 md:px-5">
       <p className="text-2xl border-b border-black pb-2 my-2">
         Product Details
       </p>
