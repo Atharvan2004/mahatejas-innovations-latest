@@ -44,6 +44,7 @@ const newOrder = asyncErrorHandler(async (req, res, next) => {
 
     await order.save()
         .then(() => {
+             user1.cart =[];
             mailSend(order);
         })
         .catch((err) => {

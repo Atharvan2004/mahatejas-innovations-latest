@@ -187,20 +187,22 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
       existingProduct.min_quantity = req.body.min_quantity;
     }
     if (req.body.category) {
-      existingProduct.category = req.body.category;
+      existingProduct.category = req.body.category+" Series";
     }
-    if (imageArray.length != 0) {
+    if (req.body.image_url != 0) {
       existingProduct.image_url = req.body.image_url;
     }
 
-    await existingProduct.save().catch((err) => {
-      res.status(400).json("Error in updating " + err);
+    const productType = req.body.type;
+    const model = models_obj[productType];
+    await model.insertMany(existingProduct).then((err) => {
+      res.status(200).json({
+        success: true,
+        existingProduct,
+      });
     });
 
-    res.status(200).json({
-      success: true,
-      existingProduct,
-    });
+    await existingProduct.deleteOne();
   } else {
     res.status(400).json("Not an admin");
   }
