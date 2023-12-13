@@ -322,13 +322,12 @@ export default function Navbar() {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link to="/" className="flex flex-col md:flex-row">
-                  {/* <span className="playfair-font uppercase text-[#fff86b] md:text-white md:font-bold">
+                  <span className="playfair-font uppercase text-[#fff86b] md:text-white md:font-bold">
                     Mahatejas
                   </span>
                   <span className="playfair-font relative uppercase text-[#fff86b] md:text-white -top-1 md:top-0 md:left-1 md:font-bold">
                     Innovations
-                  </span> */}
-                  <img src="@\assets\MTI LOGO.png" alt="Logo" className="mr-2" />
+                  </span>
                 </Link>
               </div>
 
