@@ -8,13 +8,14 @@ export default function Home() {
       <Navbar />
       <LandingBanner />
       <div className="container w-screen">
-        <h2 className="scroll-m-20 text-center border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+        <h2 className="scroll-m-20 text-center border-b mt-5 pb-2 md:text-3xl font-semibold tracking-tight first:mt-0">
           Our Manufacturing Process
         </h2>
         <iframe
-          allow="fullscreen;"
-          className="aspect-video w-full mb-10"
-          src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1"
+          className="w-full mb-5 aspect-video"
+          src="https://www.youtube.com/embed/2YBtspm8j8M"
+          title="This Is a Generic Brand Video, by Dissolve"
+          allow="accelerometer;fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
       </div>
       <Footer />

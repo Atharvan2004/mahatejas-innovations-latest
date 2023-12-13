@@ -10,8 +10,8 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { logoutUser } from "@/actions/userActions";
-import logoImg from "@/assets/images/logo.png";
 import SearchProduct from "./SearchProduct";
+import { Separator } from "@/components/ui/separator";
 
 const navigation = {
   categories: [
@@ -68,6 +68,7 @@ const navigation = {
     },
   ],
   pages: [
+    { name: "Custom Motor", href: "/custom-order" },
     { name: "OEM/ODM", href: "/oem-odm" },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
@@ -85,7 +86,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [productTabOpen, setProductTabOpen] = useState(false);
 
-  const { user,isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
@@ -133,6 +134,14 @@ export default function Navbar() {
                 {/* Links */}
                 <Tab.Group as="div" className="mt-2">
                   <div className="">
+                  <div className="flow-root ml-4">
+                    <Link
+                      to="/"
+                      className="-m-2 block p-2 font-medium link-col"
+                    >
+                      Home
+                    </Link>
+                  </div>
                     <Tab.List className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (
                         <Tab
@@ -205,15 +214,7 @@ export default function Navbar() {
                   )}
                 </Tab.Group>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  <div className="flow-root">
-                    <Link
-                      to="/"
-                      className="-m-2 block p-2 font-medium link-col"
-                    >
-                      Home
-                    </Link>
-                  </div>
+                <div className="space-y-6 px-4 pb-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
                       <Link
@@ -226,9 +227,10 @@ export default function Navbar() {
                   ))}
                 </div>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                <div className="space-y-6 border-t link-col px-4 py-6">
                   {isAuthenticated ? (
                     <button
+                      className="link-col"
                       onClick={() => {
                         dispatch(logoutUser());
                       }}
@@ -264,40 +266,43 @@ export default function Navbar() {
 
       <header className="bg-col relative bg-blue-500">
         <div className="flex h-7 items-center justify-center bg3-col px-5 lg:justify-between">
+          <span className="hidden w-48 lg:inline font-bold">
+            <Link to="/custom-order">Order a custom motor</Link>
+          </span>
           {user && user.email === import.meta.env.VITE_ADMIN_EMAIL ? (
-            <Link to="/admin/manage-orders" className="w-full text-center text-sm text-col font-bold">
+            <Link
+              to="/admin/manage-orders"
+              className="text-sm text-col font-bold"
+            >
               Go to Admin Panel
             </Link>
           ) : (
-            <>
-              <span className="hidden w-48 lg:inline"></span>
-              <span className="text-sm text-col font-bold">
-                Shipping Available to All Countries
-              </span>
-              <div className="hidden lg:block">
-                {isAuthenticated ? (
-                  <button
-                    onClick={() => {
-                      dispatch(logoutUser());
-                    }}
-                    className="mr-2 text-col"
-                  >
-                    Logout
-                  </button>
-                ) : (
-                  <>
-                    <Link to="/signup" className="text-col">
-                      <b>Create an account</b>
-                    </Link>
-                    <span className="mx-2 text-col">|</span>
-                    <Link to="/signin" className="text-col">
-                      Sign In
-                    </Link>
-                  </>
-                )}
-              </div>
-            </>
+            <span className="text-sm text-col font-bold">
+              Shipping Available to All Countries
+            </span>
           )}
+          <div className="hidden lg:block">
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  dispatch(logoutUser());
+                }}
+                className="mr-2 text-col"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link to="/signup" className="text-col">
+                  <b>Create an account</b>
+                </Link>
+                <span className="mx-2 text-col">|</span>
+                <Link to="/signin" className="text-col">
+                  Sign In
+                </Link>
+              </>
+            )}
+          </div>
         </div>
 
         <nav
@@ -316,11 +321,20 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link to="/">
-                  <span className="sr-only">Your Company</span>
-                  <img className="h-8 w-auto hidden" src={logoImg} alt="" />
+                <Link to="/" className="flex flex-col md:flex-row">
+                  <span className="playfair-font uppercase text-[#fff86b] md:text-white md:font-bold">
+                    Mahatejas
+                  </span>
+                  <span className="playfair-font relative uppercase text-[#fff86b] md:text-white -top-1 md:top-0 md:left-1 md:font-bold">
+                    Innovations
+                  </span>
                 </Link>
               </div>
+
+              <Separator
+                className="hidden lg:block left-5 h-[40%] relative"
+                orientation="vertical"
+              />
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
@@ -411,46 +425,44 @@ export default function Navbar() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-                {isAuthenticated && (
-                  <>
-                    {/* Profile */}
-                    <div className="flex lg:ml-6">
-                      <Link to="/me" className="p-2 link-col">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="h-6 w-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                          />
-                        </svg>
-                      </Link>
-                    </div>
+                {/* Profile */}
+                <div className="flex lg:ml-6">
+                  <Link
+                    to={isAuthenticated ? "/me" : "/signin"}
+                    className="p-2 link-col"
+                  >
+                    <svg
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                      />
+                    </svg>
+                  </Link>
+                </div>
 
-                    {/* Cart */}
-                    <div className="ml-4 flow-root lg:ml-6">
-                      <Link
-                        to="/cart"
-                        className="group -m-2 flex items-center p-2"
-                      >
-                        <ShoppingBagIcon
-                          className="h-6 w-6 flex-shrink-0 link-col"
-                          aria-hidden="true"
-                        />
-                        <span className="ml-2 text-sm font-medium link-col">
-                          {cart && cart.length}
-                        </span>
-                        <span className="sr-only">items in cart, view bag</span>
-                      </Link>
-                    </div>
-                  </>
-                )}
+                {/* Cart */}
+                <div className="ml-4 flow-root lg:ml-6">
+                  <Link
+                    to={isAuthenticated ? "/cart" : "/signin"}
+                    className="group -m-2 flex items-center p-2"
+                  >
+                    <ShoppingBagIcon
+                      className="h-6 w-6 flex-shrink-0 link-col"
+                      aria-hidden="true"
+                    />
+                    <span className="ml-2 text-sm font-medium link-col">
+                      {cart && cart.length}
+                    </span>
+                    <span className="sr-only">items in cart, view bag</span>
+                  </Link>
+                </div>
                 <SearchProduct />
               </div>
             </div>

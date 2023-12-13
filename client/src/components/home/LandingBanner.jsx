@@ -73,7 +73,7 @@ export default function LandingBanner() {
           />
         </div>
       ) : (
-        <Skeleton className="h-[180px] md:h-[600px] -top-10 w-screen object-cover" />
+        <Skeleton className="h-[180px] md:h-[600px] relative -top-10 w-screen object-cover" />
       )}
     </>
   );

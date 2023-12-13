@@ -2,7 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import propTypes from "prop-types";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import ProductReviews from "@/components/product/ProductReviews";
@@ -70,7 +76,10 @@ function InfoTabs({ kvImg }) {
   // ];
   return (
     <div className="max-w-7xl mb-5 py-5 mx-auto bg-white px-5">
-      <Tabs defaultValue={`KV${kvImg[0]&&kvImg[0].val}`} className="text-black">
+      <Tabs
+        defaultValue={`KV${kvImg[0] && kvImg[0].val}`}
+        className="text-black"
+      >
         <TabsList className="rounded-none w-full justify-start">
           {kvImg.map((item, index) => (
             <TabsTrigger
@@ -143,18 +152,10 @@ function Details({ _id, kv, min_quantity, price, description }) {
         )}
         {/* KV  */}
         <div>
-          {kv&&kv[0] && (
-            <KVselector selectedKv={selectedKv} setSelectedKv={setSelectedKv} />
+          {kv && kv[0] && (
+            <KVselector kvArray={kv} setSelectedKv={setSelectedKv} />
           )}
         </div>
-      </div>
-      <div className="flex justify-evenly">
-        <p></p>
-        <p>
-          <span>( </span>
-          {kv&&kv[0] && kv.map((i, index) => <span key={index}>{i}, </span>)}
-          <span> or enter custom ) *</span>
-        </p>
       </div>
       {/* Add to cart */}
       {isAdded ? (
@@ -189,55 +190,27 @@ Details.propTypes = {
   min_quantity: propTypes.number,
 };
 
-const KVselector = ({ selectedKv, setSelectedKv }) => {
-  // quantity functions
-  function increaseQuantity() {
-    setSelectedKv((prev) => prev + 50);
-  }
-  function decreaseQuantity() {
-    if (selectedKv < 50) return;
-    setSelectedKv((prev) => prev - 50);
-  }
-  function customQuantity(event) {
-    setSelectedKv(parseInt(event.target.value));
-  }
-  function checkQuantity() {
-    if (selectedKv < 0) {
-      alert(`Quantity cannot be less than 0`);
-      setSelectedKv(0);
-    }
-  }
+const KVselector = ({ kvArray, setSelectedKv }) => {
   return (
-    <div>
-      <div>
-        <span className="mb-2 mt-1">Select KV</span>
-      </div>
-      <div className="flex max-w-[120px] rounded-sm border border-slate-200 hover:border-slate-700">
-        <button
-          className="px-3 bg-white py-2 text-lg font-extrabold text-slate-400 hover:text-slate-900"
-          onClick={decreaseQuantity}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          value={selectedKv}
-          className="w-12 bg-white text-center text-black"
-          onChange={customQuantity}
-          onBlur={checkQuantity}
-        />
-        <button
-          className="px-3 py-2 bg-white text-lg font-extrabold text-slate-400 hover:text-slate-900"
-          onClick={increaseQuantity}
-        >
-          +
-        </button>
-      </div>
+    <div className="pl-4">
+    <p className="text-sm mb-2">Select KV</p>
+      <Select defaultValue={kvArray[0]} onValueChange={(val) => setSelectedKv(val)}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="select kv" />
+        </SelectTrigger>
+        <SelectContent>
+          {kvArray.map((kv, index) => (
+            <SelectItem key={index} value={kv}>
+              {kv}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
 KVselector.propTypes = {
-  kv: propTypes.array,
+  kvArray: propTypes.array,
   selectedKv: propTypes.string,
   setSelectedKv: propTypes.func,
 };
@@ -319,7 +292,7 @@ function ImageDisplay({ arr }) {
         onMouseLeave={resetHoverPosition}
       >
         <img
-          src={arr.length==0?IMG404:arr[imgIndex]}
+          src={arr.length == 0 ? IMG404 : arr[imgIndex]}
           alt="Product"
           className="transition-transform duration-300 transform aspect-square w-full object-cover group-hover:scale-150"
           style={{

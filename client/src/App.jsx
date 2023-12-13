@@ -25,6 +25,7 @@ import RefundReturnPolicy from "@/components/siteInfo/RefundReturnPolicy";
 import ResetPassword from "@/components/form/ResetPassword";
 import SignIn from "@/components/form/SignIn";
 import SignUp from "@/components/form/SignUp";
+import CustomOrder from "@/components/form/CustomOrder";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <NotFound /> },
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
   { path: "cart/", element: <ProtectedRoute> <Cart /> </ProtectedRoute> },
   { path: "category/:catname/:type", element: <CategoryPage /> },
   { path: "contact/", element: <Contact /> },
+  { path: "custom-order/", element: <CustomOrder /> },
   { path: "me/", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
   { path: "me/orders/", element: <ProtectedRoute><MyOrders /></ProtectedRoute> },
   { path: "oem-odm/", element: <OemOdm /> },

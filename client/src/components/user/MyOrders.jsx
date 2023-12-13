@@ -11,12 +11,12 @@ const MyOrders = () => {
 
   async function fetchOrders() {
     const { data } = await axios.get("/user/orders");
-    setOrders(data.orders);
+    setOrders(data.orders.sort((a, b) => a.orderDate - b.orderDate));
   }
 
   async function handleCancelOrder(o_id) {
     const { data } = await axios.post(`/user/order/delete/${o_id}`);
-    if (data.order) alert("Item Deleted")
+    if (data.order) alert("Item Deleted");
     fetchOrders();
   }
 
@@ -142,17 +142,27 @@ const MyOrders = () => {
                       Total: &#8377; {order.total}
                     </p>
                     <p className="text-lg font-semibold">
-                      Mobile: {order.phoneNo}
+                      Mobile:
+                      {` +${order.phoneNo.substring(
+                        0,
+                        2,
+                      )} ${order.phoneNo.substring(
+                        2,
+                        7,
+                      )} ${order.phoneNo.substring(7, 11)}`}
                     </p>
                     <p className="text-lg font-semibold">
                       Address: {order.deliveryAddress}
                     </p>
                   </div>
-                  {order.status === 'Pending' &&
-                    <button onClick={() => handleCancelOrder(order._id)} className="mt-5 border-2 border-black px-6 py-2 hover:bg-black hover:text-white md:m-0 md:h-12">
+                  {order.status === "Pending" && (
+                    <button
+                      onClick={() => handleCancelOrder(order._id)}
+                      className="mt-5 border-2 border-black px-6 py-2 hover:bg-black hover:text-white md:m-0 md:h-12"
+                    >
                       Cancel Order
                     </button>
-                  }
+                  )}
                 </div>
               </div>
             );
@@ -171,7 +181,7 @@ const CartItem = ({ data }) => {
         <img
           src={data && data.image[0] ? data.image[0] : IMG404}
           alt="product"
-          className="mx-auto aspect-square h-28 object-cover"
+          className="mx-auto mr-2 aspect-square h-28 object-cover"
         />
         <div className="w-2/3 md:w-full">
           <p className="text font-semibold">{data && data.name}</p>
