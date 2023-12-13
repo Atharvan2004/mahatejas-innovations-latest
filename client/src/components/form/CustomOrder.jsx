@@ -11,12 +11,12 @@ import { Label } from "@/components/ui/label";
 export default function CustomOrder() {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [data, setData] = useState({
-    companyName: "Meri Motor",
-    email: "hello@gmail.in",
-    phone: "8882447382",
-    size: "30mm x 20mm",
-    customKv: "250",
-    quantity: "100",
+    companyName: "",
+    email: "",
+    phone: "",
+    size: "35*20",
+    customKv: "",
+    quantity: "",
   });
   const { companyName, email, phone, size, customKv, quantity } = data;
 
@@ -156,7 +156,7 @@ export default function CustomOrder() {
             value={customKv}
           />
           <Label className="text-md font-bold text-black" htmlFor="quantity">
-            Quanity
+            Quantity
           </Label>
           <Input
             autoCorrect="off"
