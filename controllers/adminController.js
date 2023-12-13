@@ -17,7 +17,7 @@ import { Image } from "../models/Image.js";
 import { Order } from "../models/Orders.js";
 import { User } from "../models/Users.js";
 import { findProductById } from "../utils/findProduct.js";
-import { mailSend } from "../utils/sendEmail.js";
+import { mailSend, orderUpdate } from "../utils/sendEmail.js";
 
 const models_obj = {
   Multimotor,
@@ -103,7 +103,7 @@ const updateOrder = asyncErrorHandler(async (req, res, next) => {
     }
     const updatedStatus = req.params.status;
     order.status = updatedStatus;
-    order.save().then(mailSend);
+    order.save().then(orderUpdate);
     res.status(200).json({
       success: true,
       order,
