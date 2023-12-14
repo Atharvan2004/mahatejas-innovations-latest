@@ -12,6 +12,7 @@ import {
 import { logoutUser } from "@/actions/userActions";
 import SearchProduct from "./SearchProduct";
 import { Separator } from "@/components/ui/separator";
+import Logo from "@/assets/images/logo.png";
 
 const navigation = {
   categories: [
@@ -134,14 +135,14 @@ export default function Navbar() {
                 {/* Links */}
                 <Tab.Group as="div" className="mt-2">
                   <div className="">
-                  <div className="flow-root ml-4">
-                    <Link
-                      to="/"
-                      className="-m-2 block p-2 font-medium link-col"
-                    >
-                      Home
-                    </Link>
-                  </div>
+                    <div className="flow-root ml-4">
+                      <Link
+                        to="/"
+                        className="-m-2 block p-2 font-medium link-col"
+                      >
+                        Home
+                      </Link>
+                    </div>
                     <Tab.List className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (
                         <Tab
@@ -321,7 +322,10 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link to="/" className="flex flex-col md:flex-row">
+                <Link to="/" className="">
+                  <img src={Logo} alt="logo" className="h-8 w-auto" />
+                </Link>
+                <Link to="/" className="flex hidden flex-col md:flex-row">
                   <span className="playfair-font uppercase text-[#fff86b] md:text-white md:font-bold">
                     Mahatejas
                   </span>
