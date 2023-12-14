@@ -46,6 +46,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
   const [disableConfirm, setDisableConfirm] = useState(false);
 
   const handleEditProduct = (event) => {
+    console.log("edit product");
     event.preventDefault();
     setDisableConfirm(true);
 
@@ -66,7 +67,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
           kv: kv.split(","),
           weight: weight,
           min_quantity: minQuantity,
-          category: selectedType.split(" ")[0],
+          category: selectedType ? selectedType.split(" ")[0] : null,
           image_url: imgUrl,
         }),
         config,

@@ -132,7 +132,7 @@ const ListItem = ({ title, price, linkID, img }) => {
   return (
     <div className="flex flex-col justify-between bg-white shadow-md hover:scale-105 hover:shadow-xl">
       <img
-        src={img.length > 0 ? img[0] : IMG404}
+        src={img&&img.length > 0 ? img[0] : IMG404}
         className="mx-auto mb-2 aspect-square h-52 object-cover md:h-auto md:w-[90%] md:p-5"
       />
       <p className="mb-2 px-3 text-center text-xl">{title}</p>

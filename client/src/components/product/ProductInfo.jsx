@@ -193,8 +193,11 @@ Details.propTypes = {
 const KVselector = ({ kvArray, setSelectedKv }) => {
   return (
     <div className="pl-4">
-    <p className="text-sm mb-2">Select KV</p>
-      <Select defaultValue={kvArray[0]} onValueChange={(val) => setSelectedKv(val)}>
+      <p className="text-sm mb-2">Select KV</p>
+      <Select
+        defaultValue={kvArray[0]}
+        onValueChange={(val) => setSelectedKv(val)}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="select kv" />
         </SelectTrigger>
@@ -292,7 +295,7 @@ function ImageDisplay({ arr }) {
         onMouseLeave={resetHoverPosition}
       >
         <img
-          src={arr.length == 0 ? IMG404 : arr[imgIndex]}
+          src={!arr || arr.length == 0 ? IMG404 : arr[imgIndex]}
           alt="Product"
           className="transition-transform duration-300 transform aspect-square w-full object-cover group-hover:scale-150"
           style={{
@@ -302,14 +305,15 @@ function ImageDisplay({ arr }) {
         />
       </div>
       <div className="grid grid-cols-5 gap-x-2 md:gap-x-5 gap-y-2 p-5">
-        {arr.map((img, index) => (
-          <button key={index} onClick={() => setImgIndex(index)}>
-            <img
-              src={img}
-              className="w-full aspect-square object-cover p-1 border border-slate-500"
-            />
-          </button>
-        ))}
+        {arr &&
+          arr.map((img, index) => (
+            <button key={index} onClick={() => setImgIndex(index)}>
+              <img
+                src={img}
+                className="w-full aspect-square object-cover p-1 border border-slate-500"
+              />
+            </button>
+          ))}
       </div>
     </div>
   );

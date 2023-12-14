@@ -15,7 +15,7 @@ export default function Home() {
           className="w-full mb-5 aspect-video"
           src="https://www.youtube.com/embed/2YBtspm8j8M"
           title="This Is a Generic Brand Video, by Dissolve"
-          allow="accelerometer;fullscreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="fullscreen"
         ></iframe>
       </div>
       <Footer />

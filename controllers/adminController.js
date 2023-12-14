@@ -186,7 +186,7 @@ const updateProduct = asyncErrorHandler(async (req, res, next) => {
     if (req.body.category) {
       updatedProduct.category = req.body.category+" Series";
     }
-    if (req.body.image_url != 0) {
+    if (req.body.image_url) {
       updatedProduct.image_url = req.body.image_url;
     }
     
