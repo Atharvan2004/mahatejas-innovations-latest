@@ -63,6 +63,7 @@ export default function App() {
     dispatch(fetchCart());
     
   }, [dispatch]);
+  console.log('endpoints', import.meta.env.VITE_API_ENDPOINT);
 
   return <RouterProvider router={router} />;
 }
