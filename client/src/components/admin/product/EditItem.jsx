@@ -127,7 +127,7 @@ export default function EditItem({ pi, sc, st, na, de, k, pr, we, mq }) {
             <Textarea
               value={description}
               id="description"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
               className="text-black"
             />
           </div>

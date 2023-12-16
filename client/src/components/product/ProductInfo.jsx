@@ -174,11 +174,14 @@ function Details({ _id, kv, min_quantity, price, description }) {
         </button>
       )}
       <p className="text-lg">Description -</p>
-      <p>
-        {description && description.length !== 0
-          ? description
-          : "No description provided"}
-      </p>
+      <p
+        dangerouslySetInnerHTML={{
+          __html:
+            description && description.length !== 0
+              ? description
+              : "No description provided",
+        }}
+      />
     </div>
   );
 }
