@@ -36,7 +36,16 @@ const mailSend = (async (order, next) => {
     
     const emailBody = `
         <h2>Thanks for ordering, confirmation email will be sent when order gets accepted</h2>
-        <p>We'll get in touch regarding the payment</p>
+        <p>Please make the payment using the details given below</p>
+        <br />
+        <ul>
+        <li>COMPANY NAME - MAHATEJAS INNOVATIVE MACHINERY INDIA PVT LTD</li>
+        <li>BANK NAME - BANK OF INDIA</li>
+        <li>ACCOUNT - 945020110000779</li>
+        <li>IFSC - BKID0009450</li>
+        <li>BRANCH - GWALIOR</li>
+        </ul>
+        <br />
         <h3>Order Details</h3>
         <p>Order Date: ${order.orderDate}</p>
         <p>Customer Name: ${order.userName}</p>
