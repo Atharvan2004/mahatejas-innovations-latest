@@ -73,6 +73,7 @@ const navigation = {
     { name: "OEM/ODM", href: "/oem-odm" },
     { name: "Contact", href: "/contact" },
     { name: "About", href: "/about" },
+    { name: "Gallery", href: "/gallery" },
   ],
 };
 
@@ -152,7 +153,7 @@ export default function Navbar() {
                               selected
                                 ? "text-slate-800"
                                 : "border-transparent",
-                              "whitespace-nowrap flex pr-1 py-4 link-col font-medium",
+                              "whitespace-nowrap flex pr-1 py-4 link-col font-medium"
                             )
                           }
                           onClick={() => setProductTabOpen((prev) => !prev)}
@@ -359,7 +360,7 @@ export default function Navbar() {
                                 open
                                   ? "text-slate-600"
                                   : "border-transparent link-col",
-                                "relative z-10 -mb-px flex items-center text-sm font-medium transition-colors duration-200 ease-out",
+                                "relative z-10 -mb-px flex items-center text-sm font-medium transition-colors duration-200 ease-out"
                               )}
                             >
                               {category.name}

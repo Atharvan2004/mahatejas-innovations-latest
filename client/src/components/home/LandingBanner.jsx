@@ -11,6 +11,8 @@ export default function LandingBanner() {
       const res = await axios.get(
         `${import.meta.env.VITE_API_ENDPOINT}/admin/getCarousel`,
       );
+      console.log(import.meta.env.VITE_API_ENDPOINT+"asd")
+      console.log(res.data.imageArray)
       setImgArr(res.data.imageArray);
     }
     getImages();

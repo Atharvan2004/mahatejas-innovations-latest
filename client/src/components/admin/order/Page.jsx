@@ -31,6 +31,7 @@ export default function ManageOrders() {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_ENDPOINT}/admin/orders/`,
       );
+      console.log(`${import.meta.env.VITE_API_ENDPOINT}/admin/orders/`+data)
       setOrders(alterSchema(data.orders));
     }
     getOrders();

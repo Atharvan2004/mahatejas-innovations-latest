@@ -18,6 +18,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 const port = 3000;
+await conn();
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -27,7 +28,6 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-conn();
 app.use("/api", router);
 app.use("/user", Urouter);
 app.use("/order", Orouter);

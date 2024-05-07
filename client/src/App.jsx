@@ -26,6 +26,7 @@ import ResetPassword from "@/components/form/ResetPassword";
 import SignIn from "@/components/form/SignIn";
 import SignUp from "@/components/form/SignUp";
 import CustomOrder from "@/components/form/CustomOrder";
+import Gallery from "./components/common/Gallery";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <NotFound /> },
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
       { path: "reset-password/", element: <ResetPassword /> },
     ],
   },
+  { path: "gallery", element: <Gallery /> },
 ]);
 
 export default function App() {
