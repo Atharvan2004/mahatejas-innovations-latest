@@ -31,7 +31,7 @@ export const registerUser = (userData) => async (dispatch) => {
       JSON.stringify(userData),
       config,
     );
-
+    console.log(data.user1)
     dispatch(REGISTER_USER_SUCCESS(data.user1));
   } catch (error) {
     dispatch(REGISTER_USER_FAIL(error.response.data));
@@ -57,8 +57,8 @@ export const loginUser = (email, password) => async (dispatch) => {
       }),
       config,
     );
-
-    dispatch(LOGIN_USER_SUCCESS(data.user1));
+    console.log(data.token)
+    dispatch(LOGIN_USER_SUCCESS(data.token));
   } catch (error) {
     dispatch(LOGIN_USER_FAIL(error.response.data));
   }

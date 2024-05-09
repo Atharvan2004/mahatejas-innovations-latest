@@ -24,7 +24,7 @@ const registerUser = asyncErrorHandler(async (req, res, next) => {
         res.cookie("token", token, {
             maxAge: 60 * 60 * 6 * 1000,
         });
-        res.status(200).json("Successfully created User");
+        res.status(200).json({message:"Successfully created User","token":token});
     })
         .catch((err) => {
             res.status(400).json("Error in creating " + err);
@@ -50,7 +50,7 @@ const loginUser = asyncErrorHandler(async (req, res, next) => {
         res.cookie("token", token, {
             maxAge: 60 * 60 * 6 * 1000,
         });
-        res.status(200).json("Successfully logged in");
+        res.status(200).json({message:"Successfully logged in","token":token});
     } else {
         res.status(400).json("Incorrect Password");
     }
