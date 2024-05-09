@@ -23,6 +23,12 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://mahatejas-innovations-latest-f-atharvans-projects.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,7 +38,7 @@ app.use("/api", router);
 app.use("/user", Urouter);
 app.use("/order", Orouter);
 app.use("/admin", Arouter);
-
+console.log(__dirname)
 app.use(express.static("public"));
 app.get("*", (req, res) => {
   res.sendFile("index.html", { root: path.join(__dirname, "public") });
