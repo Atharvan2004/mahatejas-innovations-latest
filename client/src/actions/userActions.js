@@ -23,6 +23,7 @@ export const registerUser = (userData) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "token":""
       },
     };
 

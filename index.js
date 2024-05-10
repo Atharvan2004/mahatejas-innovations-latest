@@ -39,7 +39,7 @@ app.use("/admin", Arouter);
 console.log(__dirname)
 app.use(express.static("public"));
 app.get("*", (req, res) => {
-  res.sendFile("index.html", { root: path.join(__dirname, "public") });
+  res.sendFile("index.html", { root: path.join(__dirname, "public") }); 
 });
 // // serve frontend
 // app.use(express.static(path.join(__dirname, "./client/dist/")));
